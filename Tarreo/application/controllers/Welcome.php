@@ -56,13 +56,13 @@ class Welcome extends CI_Controller
     public function addParticipante()
     {
         date_default_timezone_set("Chile/Continental");
-        $hora = date('Y:m:d_H:i:s');
+        $hora = date('Y_m_d_H_i_s');
         $nombre_imagen = $_FILES['foto']['name'];
         $tipo_imagen = $_FILES['foto']['type'];
         $tamano_imagen = $_FILES['foto']['size'];
 
         if ($nombre_imagen == null || $tipo_imagen == null || $tamano_imagen == null) {
-            $carpeta_destino = $_SERVER['DOCUMENT_ROOT'] . 'Tarreo/lib/img/Jugadores/';
+            $carpeta_destino = $_SERVER['DOCUMENT_ROOT'] . '/Tarreo/lib/img/Jugadores/';
             $nombre_imagen = $hora . $nombre_imagen;
 
             $rut = $this->input->post("j_username");
@@ -85,7 +85,7 @@ class Welcome extends CI_Controller
             }
         } else {
             if ($tamano_imagen <= 10000000) {
-                $carpeta_destino = $_SERVER['DOCUMENT_ROOT'] . 'Tarreo/lib/img/Jugadores/';
+                $carpeta_destino = $_SERVER['DOCUMENT_ROOT'] . '/Tarreo/lib/img/Jugadores/';
                 $nombre_imagen = $hora . $nombre_imagen;
 
                 $rut = $this->input->post("j_username");
@@ -95,7 +95,7 @@ class Welcome extends CI_Controller
                 $correo = $this->input->post("correo");
                 $clave = $this->input->post("clave");
 
-                $resultado = $this->indexModel->addParticipante($rut, $nombres, $apellidos, $correo, $nombre_imagen, $numero, $clave);
+                $resultado = $this->indexModel->addParticipante($rut, $nombres, $apellidos, $correo, $numero, $nombre_imagen, $clave);
 
                 if ($resultado == "ok") {
                     move_uploaded_file($_FILES['foto']['tmp_name'], $carpeta_destino . $nombre_imagen);

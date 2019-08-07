@@ -381,12 +381,12 @@ class participante extends CI_Controller
                 $id = $this->input->post("idEquipo");
                 $nombre = $this->input->post("nombre");
                 $descripcion = $this->input->post("descripcion");
-                
-                
-                $resultado = $this->modeloParti->edditEquipoSinFoto($id,$nombre, $descripcion);
+
+
+                $resultado = $this->modeloParti->edditEquipoSinFoto($id, $nombre, $descripcion);
                 if ($resultado == "ok") {
                     redirect("Equipo");
-                } 
+                }
             } else {
                 if ($tamano_imagen <= 10000000) {
                     $carpeta_destino = $_SERVER['DOCUMENT_ROOT'] . 'Tarreo/lib/img/Equipos/';
@@ -394,15 +394,25 @@ class participante extends CI_Controller
                     $id = $this->input->post("idEquipo");
                     $nombre = $this->input->post("nombre");
                     $descripcion = $this->input->post("descripcion");
-                    $resultado = $this->modeloParti->edditEquipo($id,$nombre, $descripcion, $nombre_imagen);
+                    $resultado = $this->modeloParti->edditEquipo($id, $nombre, $descripcion, $nombre_imagen);
                     if ($resultado == "ok") {
                         move_uploaded_file($_FILES['foto']['tmp_name'], $carpeta_destino . $nombre_imagen);
                         redirect("Equipo");
-                    } 
+                    }
                 } else {
                     echo "El tamaño de la imagen supera el limite";
                 }
             }
+        } else {
+            $this->load->view('Errormsg');
+        }
+    }
+
+    public function getNumeroNotificaciones()
+    {
+        if (count($this->session->userdata("participante")) > 0) {
+            $idEquipo = $this->input->post("id");
+            echo json_encode($this->modeloParti->getNumeroNotificaciones($idEquipo));
         } else {
             $this->load->view('Errormsg');
         }

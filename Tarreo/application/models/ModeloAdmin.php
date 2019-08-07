@@ -1,30 +1,33 @@
 <?php
 
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
-class ModeloAdmin extends CI_Model {
+class ModeloAdmin extends CI_Model
+{
 
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
     }
 
-    function getRutUsuarios($rut) {
-        
-    }
+    function getRutUsuarios($rut)
+    { }
 
-    function addParticipante($rut, $nombres, $apellidos, $correo, $numero, $nombre_imagen, $clave) {
-        
+    function addParticipante($rut, $nombres, $apellidos, $correo, $numero, $nombre_imagen, $clave)
+    {
+
         $user = $this->session->userdata("administrador");
-        
-       
-        
+
+
+
         $this->db->select('count (*)');
         $this->db->from('participante');
         $this->db->where('rutParticipante', $rut);
         $resultado = $this->db->count_all_results();
 
         if ($resultado == 0) {
-            $data = array("rutParticipante" => $rut,
+            $data = array(
+                "rutParticipante" => $rut,
                 "nombreParticipante" => $nombres,
                 "apellidoParticipante" => $apellidos,
                 "correoParticipante" => $correo,
@@ -32,7 +35,8 @@ class ModeloAdmin extends CI_Model {
                 "fotoParticipante" => $nombre_imagen,
                 "claveParticipante" => $clave,
                 "numeroJuegosParticipante" => 0,
-                "estadoParticipante" => 1);
+                "estadoParticipante" => 1
+            );
             $this->db->insert("participante", $data);
             return "ok";
         } else {
@@ -41,16 +45,18 @@ class ModeloAdmin extends CI_Model {
         return "error";
     }
 
-    function addParticipanteSinFoto($rut, $nombres, $apellidos, $correo, $numero, $clave) {
+    function addParticipanteSinFoto($rut, $nombres, $apellidos, $correo, $numero, $clave)
+    {
         $user = $this->session->userdata("administrador");
-        
+
         $this->db->select('count (*)');
         $this->db->from('participante');
         $this->db->where('rutParticipante', $rut);
         $resultado = $this->db->count_all_results();
 
         if ($resultado == 0) {
-            $data = array("rutParticipante" => $rut,
+            $data = array(
+                "rutParticipante" => $rut,
                 "nombreParticipante" => $nombres,
                 "apellidoParticipante" => $apellidos,
                 "correoParticipante" => $correo,
@@ -58,7 +64,8 @@ class ModeloAdmin extends CI_Model {
                 "fotoParticipante" => "usuario-sin-foto.png",
                 "claveParticipante" => $clave,
                 "numeroJuegosParticipante" => 0,
-                "estadoParticipante" => 1);
+                "estadoParticipante" => 1
+            );
             $this->db->insert("participante", $data);
             return "ok";
         } else {
@@ -67,18 +74,23 @@ class ModeloAdmin extends CI_Model {
         return "error";
     }
 
-    function addJuego($nombre, $descripcion, $fecha, $anno,$nombre_imagen) {
-        $data = array("nombreJuego" => $nombre,
+    function addJuego($nombre, $descripcion, $fecha, $anno, $nombre_imagen, $tipo)
+    {
+        $data = array(
+            "nombreJuego" => $nombre,
             "descripcionJuego" => $descripcion,
             "fotoJuego" => $nombre_imagen,
             "postulantesJuego" => 0,
             "fechaRealizacionJuego" => $fecha,
             "annoJuego" => $anno,
-            "estadoJuego" => 1);
+            "estadoJuego" => 1,
+            "tipoJuego" => $tipo
+        );
         $this->db->insert("juegos", $data);
     }
 
-    function verParticipantes() {
+    function verParticipantes()
+    {
 
         $prueba = '<img class="img-responsive" style="width: 75px; height:75px;" src="http://127.0.0.1/Tarreo/lib/img/Jugadores/';
         $prueba2 = '" alt=""/>';
@@ -88,13 +100,15 @@ class ModeloAdmin extends CI_Model {
         return $this->db->get();
     }
 
-    function editarEstadoParticipante($id, $estado) {
+    function editarEstadoParticipante($id, $estado)
+    {
         $data = array("estadoParticipante" => $estado);
         $this->db->where('idParticipante', $id);
         return $this->db->update("participante", $data);
     }
 
-    function verJuegos(){
+    function verJuegos()
+    {
         $prueba = '<img class="img-responsive" style="width: 130px; height:125px;" src="http://127.0.0.1/Tarreo/lib/img/Juegos/';
         $prueba2 = '" alt=""/>';
         $this->db->select("j.idJuego,j.nombreJuego,j.descripcionJuego,concat('$prueba',j.fotoJuego,'$prueba2') as fotoJuego,j.postulantesJuego,j.fechaRealizacionJuego,j.annoJuego,e.nombreEstado,t.nombreTipo_Juego");

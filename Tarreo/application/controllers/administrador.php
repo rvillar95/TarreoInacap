@@ -177,34 +177,40 @@ class administrador extends CI_Controller
             $nombre_imagen = $_FILES['foto']['name'];
             $tipo_imagen = $_FILES['foto']['type'];
             $tamano_imagen = $_FILES['foto']['size'];
+            $tipo = $this->input->post("tipo");
 
-            if ($tamano_imagen <= 10000000) {
-                if ($tipo_imagen == "image/jpeg" || $tipo_imagen == "image/png" || $tipo_imagen == "image/jpj" || $tipo_imagen == "image/gif") {
-
-                    $carpeta_destino = $_SERVER['DOCUMENT_ROOT'] . 'Tarreo/lib/img/Juegos/';
-                    $nombre_imagen = $hora . $nombre_imagen;
-
-
-
-                    $nombre = $this->input->post("nombre");
-                    $descripcion = $this->input->post("descripcion");
-                    $fecha = $this->input->post("fecha");
-                    $hora2 = $this->input->post("hora");
-
-                    $fecha = $fecha . ' ' . $hora2;
-
-
-                    $this->modeloAdmin->addJuego($nombre, $descripcion, $fecha, $anno, $nombre_imagen);
-
-
-                    move_uploaded_file($_FILES['foto']['tmp_name'], $carpeta_destino . $nombre_imagen);
-                    redirect("ModuloJuegos");
+            if ($tipo!=null) {
+                if ($tamano_imagen <= 10000000) {
+                    if ($tipo_imagen == "image/jpeg" || $tipo_imagen == "image/png" || $tipo_imagen == "image/jpj" || $tipo_imagen == "image/gif") {
+    
+                        $carpeta_destino = $_SERVER['DOCUMENT_ROOT'] . '/Tarreo/lib/img/Juegos/';
+                        $nombre_imagen = $hora . $nombre_imagen;
+    
+    
+    
+                        $nombre = $this->input->post("nombre");
+                        $descripcion = $this->input->post("descripcion");
+                        $fecha = $this->input->post("fecha");
+                        $hora2 = $this->input->post("hora");
+                        
+                        $fecha = $fecha . ' ' . $hora2;
+    
+    
+                        $this->modeloAdmin->addJuego($nombre, $descripcion, $fecha, $anno, $nombre_imagen,$tipo);
+    
+    
+                        move_uploaded_file($_FILES['foto']['tmp_name'], $carpeta_destino . $nombre_imagen);
+                        redirect("ModuloJuegos");
+                    } else {
+                        echo "El formato de la imagen tiene que ser jpg, png, jpeg o gif.";
+                    }
                 } else {
-                    echo "El formato de la imagen tiene que ser jpg, png, jpeg o gif.";
+                    echo "El tamaño de la imagen supera el limite";
                 }
-            } else {
-                echo "El tamaño de la imagen supera el limite";
+            }else{
+                echo "Selecciona el tipo";
             }
+            
         } else {
             $this->load->view('Errormsg');
         }

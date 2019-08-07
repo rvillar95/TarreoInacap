@@ -206,6 +206,7 @@ function getParticipantesIndividuales(id) {
 
 function getJuegosParticipante(id) {
     var id = id;
+
     if (id == "") {
         toastr.error("Verifique todos los campos", "Ingrese todos los datos!!!")
     } else {
@@ -217,15 +218,24 @@ function getJuegosParticipante(id) {
         }).then(function (msg) {
             $("#bodyJuegos").empty();
             $.each(msg, function (i, o) {
-                if (o.capitanEquipo == id) {
+                $.ajax({
+                    url: 'getNumeroNotificaciones',
+                    type: 'POST',
+                    dataType: 'json',
+                    data: { "id": o.idEquipo }
+                }).then(function (k) {
+                    if (o.capitanEquipo == id) {
 
-                    var fila = '<div class="row">  <input class="hidden" id="idEquipoSolicitud" value="' + o.idEquipo + '" />              <div class="col-md-5">          <center>          <div class="div-img sty contenedor"><img src="http://127.0.0.1/Tarreo/lib/img/Equipos/' + o.fotoEquipo + '" class="img-responsive img" alt="" /></div>    </center>            </div>                <div class="col-md-7">                    <h2 class="">' + o.nombreEquipo + ' </h2><small>Juego: ' + o.nombreJuego + ' </small></br><small>Descripción: ' + o.descripcionEquipo + '</small></br>                    <div class="m-t-md">                        <h2 class="product-main-price">' + o.integrantesEquipo + ' <small class="text-muted">Integrantes</small></h2>                    </div>                    <form id="login" name="login" method="post" action="http://127.0.0.1/Tarreo/editarEquipo" enctype="multipart/form-data">                        <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12"><label>Nombre Equipo</label> <input type="text" value="' + o.nombreEquipo + '" required name="nombre" placeholder="Ingrese Nombre Equipo" class="form-control"></div>                        <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12"><label>Descripcion Equipo</label> <input type="text" value="' + o.descripcionEquipo + '" required name="descripcion" placeholder="Ingrese Descripcion Equipo" class="form-control"></div>                        <div class="hidden"><label>Descripcion Equipo</label> <input type="text" required name="usuario" value="<?= $user[0]->idParticipante ?>"></div>                        <div class="hidden"><label>Descripcion Equipo</label> <input type="text" required name="idEquipo" value="' + o.idEquipo + '"></div>                        <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12"><label>Foto Equipo</label> <input type="file" name="foto" placeholder="Ingrese una Foto" class="form-control"></div>                        <div class="form-group form-group col-lg-12 col-md-12 col-sm-4 col-xs-12"><button type="submit" id="btnAgregarEquipo" class="btn btn-primary btn-sm">Editar Equipo</button></div>                    </form>                    <div>                <div class="btn-group"><button class="btn btn-primary btn-sm" id="btnVerSolicitudes" value="' + o.idEquipo + '" data-toggle="modal" data-target="#modal-solicitudes"> Ver Solicitudes <span class="label label-danger pull-center" id="noti"></span></button></div> <div class="btn-group"><button class="btn btn-primary btn-sm" data-toggle="modal"  id="btnVerIntegrantes" value="' + o.idEquipo + '"  data-target="#modal-integrantes"> Ver Integrantes </button></div>                        </div>                </div>            </div></br>';
-                    $("#bodyJuegos").append(fila);
-                } else {
+                        var fila = '<div class="row">  <input class="hidden" id="idEquipoSolicitud" value="' + o.idEquipo + '" />              <div class="col-md-5">          <center>          <div class="div-img sty contenedor"><img src="http://127.0.0.1/Tarreo/lib/img/Equipos/' + o.fotoEquipo + '" class="img-responsive img" alt="" /></div>    </center>            </div>                <div class="col-md-7">                    <h2 class="">' + o.nombreEquipo + ' </h2><small>Juego: ' + o.nombreJuego + ' </small></br><small>Descripción: ' + o.descripcionEquipo + '</small></br>                    <div class="m-t-md">                        <h2 class="product-main-price">' + o.integrantesEquipo + ' <small class="text-muted">Integrantes</small></h2>                    </div>                    <form id="login" name="login" method="post" action="http://127.0.0.1/Tarreo/editarEquipo" enctype="multipart/form-data">                        <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12"><label>Nombre Equipo</label> <input type="text" value="' + o.nombreEquipo + '" required name="nombre" placeholder="Ingrese Nombre Equipo" class="form-control"></div>                        <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12"><label>Descripcion Equipo</label> <input type="text" value="' + o.descripcionEquipo + '" required name="descripcion" placeholder="Ingrese Descripcion Equipo" class="form-control"></div>                        <div class="hidden"><label>Descripcion Equipo</label> <input type="text" required name="usuario" value="<?= $user[0]->idParticipante ?>"></div>                        <div class="hidden"><label>Descripcion Equipo</label> <input type="text" required name="idEquipo" value="' + o.idEquipo + '"></div>                        <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12"><label>Foto Equipo</label> <input type="file" name="foto" placeholder="Ingrese una Foto" class="form-control"></div>                        <div class="form-group form-group col-lg-12 col-md-12 col-sm-4 col-xs-12"><button type="submit" id="btnAgregarEquipo" class="btn btn-primary btn-sm">Editar Equipo</button></div>                    </form>                    <div>                <div class="btn-group"><button class="btn btn-primary btn-sm" id="btnVerSolicitudes" value="' + o.idEquipo + '" data-toggle="modal" data-target="#modal-solicitudes"> Ver Solicitudes <span class="label label-danger pull-center" id="noti">'+k+'</span></button></div> <div class="btn-group"><button class="btn btn-primary btn-sm" data-toggle="modal"  id="btnVerIntegrantes" value="' + o.idEquipo + '"  data-target="#modal-integrantes"> Ver Integrantes </button></div>                        </div>                </div>            </div></br>';
+                        $("#bodyJuegos").append(fila);
+                    } else {
 
-                    var fila = '<div class="row">    <input class="hidden" id="idEquipoIntegrantes" value="' + o.idEquipo + '" />            <div class="col-md-5">          <center>          <div class="div-img sty contenedor"><img src="http://127.0.0.1/Tarreo/lib/img/Equipos/' + o.fotoEquipo + '" class="img-responsive img" alt="" /></div>    </center>            </div>                <div class="col-md-7">                    <h2 class="">' + o.nombreEquipo + ' </h2><small>Juego: ' + o.nombreJuego + ' </small></br><small>Descripción: ' + o.descripcionEquipo + '</small></br>                    <div class="m-t-md">                        <h2 class="product-main-price">' + o.integrantesEquipo + ' <small class="text-muted">Integrantes</small></h2>                    </div>                     <div class="btn-group"><button class="btn btn-primary btn-sm"  id="btnVerIntegrantes" value="' + o.idEquipo + '"  data-toggle="modal" data-target="#modal-integrantes"> Ver Integrantes </button></div>                        </div>                </div>            </div></br>';
-                    $("#bodyJuegos").append(fila);
-                }
+                        var fila = '<div class="row">    <input class="hidden" id="idEquipoIntegrantes" value="' + o.idEquipo + '" />            <div class="col-md-5">          <center>          <div class="div-img sty contenedor"><img src="http://127.0.0.1/Tarreo/lib/img/Equipos/' + o.fotoEquipo + '" class="img-responsive img" alt="" /></div>    </center>            </div>                <div class="col-md-7">                    <h2 class="">' + o.nombreEquipo + ' </h2><small>Juego: ' + o.nombreJuego + ' </small></br><small>Descripción: ' + o.descripcionEquipo + '</small></br>                    <div class="m-t-md">                        <h2 class="product-main-price">' + o.integrantesEquipo + ' <small class="text-muted">Integrantes</small></h2>                    </div>                     <div class="btn-group"><button class="btn btn-primary btn-sm"  id="btnVerIntegrantes" value="' + o.idEquipo + '"  data-toggle="modal" data-target="#modal-integrantes"> Ver Integrantes </button></div>                        </div>                </div>            </div></br>';
+                        $("#bodyJuegos").append(fila);
+                    }
+
+                });
+
                 //var fila = '<div class="row">                <div class="col-md-5">          <center>          <div class="div-img sty contenedor"><img src="http://127.0.0.1/Tarreo/lib/img/Equipos/'+o.fotoEquipo+'" class="img-responsive img" alt="" /></div>    </center>            </div>                <div class="col-md-7">                    <h2 class="">'+o.nombreEquipo+' </h2><small>Juego: '+o.nombreJuego+' </small></br><small>Descripción: '+o.descripcionEquipo+'</small></br>                    <div class="m-t-md">                        <h2 class="product-main-price">'+o.integrantesEquipo+' <small class="text-muted">Integrantes</small></h2>                    </div>                    <form id="login" name="login" method="post" action="http://127.0.0.1/Tarreo/editEquipo" enctype="multipart/form-data">                        <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12"><label>Nombre Equipo</label> <input type="text" value="'+o.nombreEquipo+'" required name="nombre" placeholder="Ingrese Nombre Equipo" class="form-control"></div>                        <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12"><label>Descripcion Equipo</label> <input type="text" value="'+o.descripcionEquipo+'" required name="descripcion" placeholder="Ingrese Descripcion Equipo" class="form-control"></div>                        <div class="hidden"><label>Descripcion Equipo</label> <input type="text" required name="usuario" value="<?= $user[0]->idParticipante ?>"></div>                        <div class="hidden"><label>Descripcion Equipo</label> <input type="text" required name="idEquipo" value="'+o.idEquipo+'"></div>                        <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12"><label>Foto Equipo</label> <input type="file" name="foto" placeholder="Ingrese una Foto" class="form-control"></div>                        <div class="form-group form-group col-lg-12 col-md-12 col-sm-4 col-xs-12"><button type="submit" id="btnAgregarEquipo" class="btn btn-primary btn-sm">Editar Equipo</button></div>                    </form>                    <div>                <div class="btn-group"><button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modal-solicitudes"> Ver Solicitudes <span class="label label-danger pull-center" id="noti"></span></button></div> <div class="btn-group"><button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modal-integrantes"> Ver Integrantes </button></div>                        </div>                </div>            </div></br>';
                 //$("#bodyJuegos").append(fila);
             });
@@ -357,4 +367,22 @@ function aceptarParticipante(idParticipante, idJuego, id) {
         });
     }
 }
+
+function getNumeroNoti(datos) {
+    var id = datos;
+    if (id == "") {
+        toastr.error("Verifique todos los campos", "Ingrese todos los datos!!!")
+    } else {
+        $.ajax({
+            url: 'getNumeroNotificaciones',
+            type: 'POST',
+            dataType: 'json',
+            data: { "id": id }
+        }).then(function (msg) {
+            $("#noti").val(msg);
+
+        });
+    }
+}
+
 

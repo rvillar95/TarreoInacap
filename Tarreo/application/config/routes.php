@@ -79,6 +79,7 @@ $route['getSolicitudesEquipos'] = 'participante/getSolicitudesEquipos';
 $route['aceptar'] = 'participante/aceptar';
 $route['rechazar'] = 'participante/rechazar';
 $route['editarEquipo'] = 'participante/editarEquipo';
+$route['getNumeroNotificaciones'] = 'participante/getNumeroNotificaciones';
 
 
 

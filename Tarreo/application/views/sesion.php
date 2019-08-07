@@ -6,7 +6,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <title>SacrificeSports | Login</title>
+        <title>Tarreo Inacap Talca 2019</title>
         <link rel="shortcut icon" href="<?php echo base_url() ?>lib/img/favicon.png">
         <link href="<?php echo base_url() ?>lib/css/bootstrap.min.css" rel="stylesheet">
         <link href="<?php echo base_url() ?>lib/fonts/font-awesome.css" rel="stylesheet">

@@ -201,6 +201,7 @@ class ModeloParti extends CI_Model
         $this->db->join("postulantes n", "n.juegoPostulante = e.juegoEquipo");
         $this->db->where("e.estadoEquipo", 1);
         $this->db->where("n.participantePostulante", $id);
+        
         return $this->db->get();
     }
 
@@ -336,5 +337,17 @@ class ModeloParti extends CI_Model
         $this->db->where('idEquipo', $id);
         $this->db->update("equipo", $data);
         return "ok";
+    }
+
+    function getNumeroNotificaciones($idEquipo){
+        $this->db->select("count(*) as num");
+        $this->db->from("participante p");
+        $this->db->join("equipo_participante e", "e.participanteEquipo = p.idParticipante");
+        $this->db->join("equipo a", "a.idEquipo = e.teamEquipo");
+        $this->db->where("e.teamEquipo", $idEquipo);
+        $this->db->where("p.estadoParticipante", 1);
+        $this->db->where("e.estadoEquipo_Participante", 1);
+        $resultado =$this->db->get()->result();
+        return $resultado[0]->num;
     }
 }

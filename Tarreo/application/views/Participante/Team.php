@@ -255,6 +255,7 @@
                     e.preventDefault();
                     var datos = $(this).val();
                     verSolicitudes(datos);
+                    getNumeroNoti(datos);
                 });
 
                 $("body").on("click", "#btnAceptar", function(e) {

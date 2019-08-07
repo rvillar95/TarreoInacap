@@ -107,6 +107,13 @@ class ModeloAdmin extends CI_Model
         return $this->db->update("participante", $data);
     }
 
+    function editarEstadoJuego($id, $estado)
+    {
+        $data = array("estadoJuego" => $estado);
+        $this->db->where('idJuego', $id);
+        return $this->db->update("juegos", $data);
+    }
+
     function verJuegos()
     {
         $prueba = '<img class="img-responsive" style="width: 130px; height:125px;" src="http://127.0.0.1/Tarreo/lib/img/Juegos/';
@@ -116,5 +123,31 @@ class ModeloAdmin extends CI_Model
         $this->db->join("estado e", "e.idEstado = j.estadoJuego");
         $this->db->join("tipo_juego t", "t.idTipo_Juego = j.tipoJuego");
         return $this->db->get();
+    }
+
+    function verEquiposAdmin()
+    {
+        $prueba = '<img class="img-responsive" style="width: 130px; height:125px;" src="http://127.0.0.1/Tarreo/lib/img/Equipos/';
+        $prueba2 = '" alt=""/>';
+        $this->db->select("e.idEquipo,e.nombreEquipo,e.descripcionEquipo,concat('$prueba',e.fotoEquipo,'$prueba2') as fotoEquipo,e.integrantesEquipo,a.nombreEstadoE,concat(p.nombreParticipante,' ',p.apellidoParticipante) as nombreParticipante,j.nombreJuego");
+        $this->db->from("equipo e");
+        $this->db->join("estado_equipo a", "a.idEstadoE = e.estadoEquipo");
+        $this->db->join("participante p", "p.idParticipante = e.capitanEquipo");
+        $this->db->join("juegos j", "j.idJuego = e.juegoEquipo");
+        return $this->db->get();
+    }
+
+    function addComentario($titulo, $comentario, $admin, $equipo)
+    {
+        date_default_timezone_set("America/Santiago");
+        $fecha = date('Y-m-d H:i:s');
+        $data = array(
+            "tituloComentario_Equipo" => $titulo,
+            "detalleComentario_Equipo" => $comentario,
+            "fecha" => $fecha,
+            "equipoComentario_Equipo" => $equipo,
+            "administradorComentario_Equipo" => $admin
+        );
+        $this->db->insert("comentario_equipo", $data);
     }
 }

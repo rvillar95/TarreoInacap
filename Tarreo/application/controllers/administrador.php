@@ -73,7 +73,7 @@ class administrador extends CI_Controller
             $nombre_imagen = $_FILES['foto']['name'];
             $tipo_imagen = $_FILES['foto']['type'];
             $tamano_imagen = $_FILES['foto']['size'];
-            
+
             if ($nombre_imagen == null || $tipo_imagen == null || $tamano_imagen == null) {
                 $carpeta_destino = $_SERVER['DOCUMENT_ROOT'] . 'Tarreo/lib/img/Jugadores/';
                 $nombre_imagen = $hora . $nombre_imagen;
@@ -99,32 +99,30 @@ class administrador extends CI_Controller
                 }
             } else {
                 if ($tamano_imagen <= 10000000) {
-                        $carpeta_destino = $_SERVER['DOCUMENT_ROOT'] . 'Tarreo/lib/img/Jugadores/';
-                        $nombre_imagen = $hora . $nombre_imagen;
+                    $carpeta_destino = $_SERVER['DOCUMENT_ROOT'] . 'Tarreo/lib/img/Jugadores/';
+                    $nombre_imagen = $hora . $nombre_imagen;
 
-                        $rut = $this->input->post("j_username");
-                        $nombres = $this->input->post("nombres");
-                        $apellidos = $this->input->post("apellidos");
-                        $numero = $this->input->post("numero");
-                        $correo = $this->input->post("correo");
-                        $clave = substr("$numero", -8);
-        
-                        $resultado = $this->modeloAdmin->addParticipante($rut, $nombres, $apellidos, $correo, $nombre_imagen,$numero, $clave);
-        
-                        if ($resultado == "ok") {
-                            move_uploaded_file($_FILES['foto']['tmp_name'], $carpeta_destino . $nombre_imagen);
-                            redirect("ModuloParticipantes");
-                        } else if ($resultado == "no") {
-                            echo "Rut ya registrado";
-                        } else if ($resultado == "error") {
-                            echo "Error";
-                        }
-                    
+                    $rut = $this->input->post("j_username");
+                    $nombres = $this->input->post("nombres");
+                    $apellidos = $this->input->post("apellidos");
+                    $numero = $this->input->post("numero");
+                    $correo = $this->input->post("correo");
+                    $clave = substr("$numero", -8);
+
+                    $resultado = $this->modeloAdmin->addParticipante($rut, $nombres, $apellidos, $correo, $nombre_imagen, $numero, $clave);
+
+                    if ($resultado == "ok") {
+                        move_uploaded_file($_FILES['foto']['tmp_name'], $carpeta_destino . $nombre_imagen);
+                        redirect("ModuloParticipantes");
+                    } else if ($resultado == "no") {
+                        echo "Rut ya registrado";
+                    } else if ($resultado == "error") {
+                        echo "Error";
+                    }
                 } else {
                     echo "El tamaño de la imagen supera el limite";
                 }
             }
-            
         } else {
             $this->load->view('Errormsg');
         }
@@ -156,11 +154,11 @@ class administrador extends CI_Controller
             $estado = $this->input->post("estado");
             if ($estado == "Activo") {
                 $estado = 2;
-                $this->modeloAdmin->editarEstadoParticipante($id, $estado);
+                $this->modeloAdmin->editarEstadoJuego($id, $estado);
                 echo json_encode(array("msg" => "ok"));
             } else if ($estado == "Inactivo") {
                 $estado = 1;
-                $this->modeloAdmin->editarEstadoParticipante($id, $estado);
+                $this->modeloAdmin->editarEstadoJuego($id, $estado);
                 echo json_encode(array("msg" => "ok"));
             }
         } else {
@@ -179,26 +177,26 @@ class administrador extends CI_Controller
             $tamano_imagen = $_FILES['foto']['size'];
             $tipo = $this->input->post("tipo");
 
-            if ($tipo!=null) {
+            if ($tipo != null) {
                 if ($tamano_imagen <= 10000000) {
                     if ($tipo_imagen == "image/jpeg" || $tipo_imagen == "image/png" || $tipo_imagen == "image/jpj" || $tipo_imagen == "image/gif") {
-    
+
                         $carpeta_destino = $_SERVER['DOCUMENT_ROOT'] . '/Tarreo/lib/img/Juegos/';
                         $nombre_imagen = $hora . $nombre_imagen;
-    
-    
-    
+
+
+
                         $nombre = $this->input->post("nombre");
                         $descripcion = $this->input->post("descripcion");
                         $fecha = $this->input->post("fecha");
                         $hora2 = $this->input->post("hora");
-                        
+
                         $fecha = $fecha . ' ' . $hora2;
-    
-    
-                        $this->modeloAdmin->addJuego($nombre, $descripcion, $fecha, $anno, $nombre_imagen,$tipo);
-    
-    
+
+
+                        $this->modeloAdmin->addJuego($nombre, $descripcion, $fecha, $anno, $nombre_imagen, $tipo);
+
+
                         move_uploaded_file($_FILES['foto']['tmp_name'], $carpeta_destino . $nombre_imagen);
                         redirect("ModuloJuegos");
                     } else {
@@ -207,10 +205,9 @@ class administrador extends CI_Controller
                 } else {
                     echo "El tamaño de la imagen supera el limite";
                 }
-            }else{
+            } else {
                 echo "Selecciona el tipo";
             }
-            
         } else {
             $this->load->view('Errormsg');
         }
@@ -279,6 +276,54 @@ class administrador extends CI_Controller
             );
             echo json_encode($output);
             exit();
+        } else {
+            $this->load->view('Errormsg');
+        }
+    }
+
+    public function verEquiposAdmin()
+    {
+        if (count($this->session->userdata("administrador")) > 0) {
+            $draw = intval($this->input->get("draw"));
+            $start = intval($this->input->get("start"));
+            $length = intval($this->input->get("length"));
+            $books = $this->modeloAdmin->verEquiposAdmin();
+            $data = array();
+
+            foreach ($books->result() as $r) {
+                $data[] = array(
+                    $r->idEquipo,
+                    $r->nombreEquipo,
+                    $r->descripcionEquipo,
+                    $r->fotoEquipo,
+                    $r->integrantesEquipo,
+                    $r->nombreEstadoE,
+                    $r->nombreParticipante,
+                    $r->nombreJuego
+                );
+            }
+            $output = array(
+                "draw" => $draw,
+                "recordsTotal" => $books->num_rows(),
+                "recordsFiltered" => $books->num_rows(),
+                "data" => $data
+            );
+            echo json_encode($output);
+            exit();
+        } else {
+            $this->load->view('Errormsg');
+        }
+    }
+
+    public function addComentario()
+    {
+        if (count($this->session->userdata("administrador")) > 0) {
+            $titulo = $this->input->post("titulo");
+            $comentario = $this->input->post("comentario");
+            $admin = $this->input->post("admin");
+            $equipo = $this->input->post("equipo");
+            $this->modeloAdmin->addComentario($titulo, $comentario, $admin, $equipo);
+            echo json_encode(array("msg" => "ok"));
         } else {
             $this->load->view('Errormsg');
         }

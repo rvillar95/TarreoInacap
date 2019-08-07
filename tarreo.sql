@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 06-08-2019 a las 20:15:45
+-- Tiempo de generación: 07-08-2019 a las 05:17:41
 -- Versión del servidor: 5.5.24-log
 -- Versión de PHP: 5.4.3
 
@@ -74,12 +74,23 @@ CREATE TABLE IF NOT EXISTS `comentario_equipo` (
   `idtituloComentario_Equipo` int(11) NOT NULL AUTO_INCREMENT,
   `tituloComentario_Equipo` varchar(50) NOT NULL,
   `detalleComentario_Equipo` varchar(1000) NOT NULL,
+  `fecha` varchar(50) DEFAULT NULL,
   `equipoComentario_Equipo` int(11) NOT NULL,
   `administradorComentario_Equipo` int(11) NOT NULL,
   PRIMARY KEY (`idtituloComentario_Equipo`),
   KEY `administradortituloComentario_Equipo` (`administradorComentario_Equipo`),
   KEY `equipotituloComentario_Equipo` (`equipoComentario_Equipo`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+
+--
+-- Volcado de datos para la tabla `comentario_equipo`
+--
+
+INSERT INTO `comentario_equipo` (`idtituloComentario_Equipo`, `tituloComentario_Equipo`, `detalleComentario_Equipo`, `fecha`, `equipoComentario_Equipo`, `administradorComentario_Equipo`) VALUES
+(1, 'prueba', 'Vamooos', '', 3, 4),
+(2, 'aaa', 'bb', '', 3, 4),
+(3, 'jiji', 'ayuwoki', '2019-08-07 04:52:02', 3, 4),
+(4, 'jojo', 'ayuwoko', '2019-08-07 00:52:36', 3, 4);
 
 -- --------------------------------------------------------
 
@@ -116,7 +127,14 @@ CREATE TABLE IF NOT EXISTS `equipo` (
   PRIMARY KEY (`idEquipo`),
   KEY `estado_equipo_idEstado_Equipo` (`estadoEquipo`,`capitanEquipo`),
   KEY `participante_idParticipante` (`capitanEquipo`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+
+--
+-- Volcado de datos para la tabla `equipo`
+--
+
+INSERT INTO `equipo` (`idEquipo`, `nombreEquipo`, `descripcionEquipo`, `fotoEquipo`, `integrantesEquipo`, `estadoEquipo`, `capitanEquipo`, `juegoEquipo`) VALUES
+(3, 'Equipo 2', 'Somos los mejores', '2019_08_06_23_37_06ekko.jpg', 2, 1, 6, 5);
 
 -- --------------------------------------------------------
 
@@ -132,7 +150,15 @@ CREATE TABLE IF NOT EXISTS `equipo_participante` (
   PRIMARY KEY (`idEquipo_Participante`),
   KEY `participante_idParticipante` (`participanteEquipo`),
   KEY `equipo_idEquipo` (`teamEquipo`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
+
+--
+-- Volcado de datos para la tabla `equipo_participante`
+--
+
+INSERT INTO `equipo_participante` (`idEquipo_Participante`, `participanteEquipo`, `teamEquipo`, `estadoEquipo_Participante`) VALUES
+(5, 6, 3, '3'),
+(6, 7, 3, '3');
 
 -- --------------------------------------------------------
 
@@ -216,7 +242,18 @@ CREATE TABLE IF NOT EXISTS `juegos` (
   KEY `annoJuego` (`annoJuego`),
   KEY `estadoJuego` (`estadoJuego`),
   KEY `annoJuego_2` (`annoJuego`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
+
+--
+-- Volcado de datos para la tabla `juegos`
+--
+
+INSERT INTO `juegos` (`idJuego`, `nombreJuego`, `descripcionJuego`, `fotoJuego`, `postulantesJuego`, `fechaRealizacionJuego`, `annoJuego`, `estadoJuego`, `tipoJuego`) VALUES
+(1, 'prueba', 'aaa', '2019_08_06_20_12_49escarlata.png', 0, '2019-08-06 11:30', 2019, 1, 0),
+(2, '1', '2', '2019_08_06_20_32_02descarga.jpg', 0, '2019-08-06 04:30', 2019, 1, 0),
+(3, 'g', 'h', '2019_08_06_20_33_06camarografo.jpg', 0, '1991-01-24 12', 2019, 1, 0),
+(4, 'aaaaa', 'bbbbbbb', '2019_08_06_20_36_20fondo.jpg', 3, '2019-08-06 12:15', 2019, 1, 1),
+(5, 'bbbbbbb', 'ccccccccc', '2019_08_06_20_36_52ekko.jpg', 4, '2019-08-06 20:30', 2019, 1, 2);
 
 -- --------------------------------------------------------
 
@@ -239,7 +276,15 @@ CREATE TABLE IF NOT EXISTS `participante` (
   UNIQUE KEY `rutParticipante` (`rutParticipante`),
   KEY `rutParticipante_2` (`rutParticipante`),
   KEY `estadoParticipante` (`estadoParticipante`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
+
+--
+-- Volcado de datos para la tabla `participante`
+--
+
+INSERT INTO `participante` (`idParticipante`, `rutParticipante`, `nombreParticipante`, `apellidoParticipante`, `correoParticipante`, `numeroParticipante`, `fotoParticipante`, `claveParticipante`, `numeroJuegosParticipante`, `estadoParticipante`) VALUES
+(6, '18.983.058-0', 'Rafael', 'Villar', 'rvillar1995@gmail.com', '91621564', '2019_08_06_20_15_27primer-desafio.jpg', '123', 0, 1),
+(7, '11.747.170-5', 'Carolina', 'Bahamondes', 'carolina@gmail.com', '91621542', '2019_08_06_20_41_54descarga.jpg', '123', 0, 1);
 
 -- --------------------------------------------------------
 
@@ -254,7 +299,16 @@ CREATE TABLE IF NOT EXISTS `postulantes` (
   PRIMARY KEY (`idPostulantes`),
   KEY `juegoPostulante` (`juegoPostulante`),
   KEY `participantePostulante` (`participantePostulante`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
+
+--
+-- Volcado de datos para la tabla `postulantes`
+--
+
+INSERT INTO `postulantes` (`idPostulantes`, `participantePostulante`, `juegoPostulante`) VALUES
+(5, 6, 4),
+(6, 6, 5),
+(7, 7, 5);
 
 -- --------------------------------------------------------
 

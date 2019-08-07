@@ -80,6 +80,16 @@ $route['aceptar'] = 'participante/aceptar';
 $route['rechazar'] = 'participante/rechazar';
 $route['editarEquipo'] = 'participante/editarEquipo';
 $route['getNumeroNotificaciones'] = 'participante/getNumeroNotificaciones';
+$route['verEquiposAdmin'] = 'administrador/verEquiposAdmin';
+$route['addComentario'] = 'administrador/addComentario';
+$route['getComentariosParticipantes'] = 'participante/getComentariosParticipantes';
+$route['editarJuego'] = 'administrador/editarJuego';
+
+
+
+
+
+
 
 
 

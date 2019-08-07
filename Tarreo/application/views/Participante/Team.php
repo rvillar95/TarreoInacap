@@ -134,6 +134,40 @@
             </div>
         </div>
     </div>
+    <div id="modal-comentario" class="modal fade " tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content animated bounceInRight">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Comentarios Administrador</h4>
+                    <small class="font-bold">Informate sobre el estado de tu Equipo</small>
+                </div>
+                <div class="modal-body">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-content">
+                            <div class="table-responsive">
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>ID </th>
+                                            <th>Titulo</th>
+                                            <th>Descripcion</th>
+                                            <th>Fecha</th>
+                                            <th>Administrador</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="tbodyComentario">
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- ./wrapper -->
     <!-- jQuery 3 -->
@@ -258,6 +292,12 @@
                     getNumeroNoti(datos);
                 });
 
+                $("body").on("click", "#btnVerComentario", function(e) {
+                    e.preventDefault();
+                    var datos = $(this).val();
+                    verComentariosParticipante(datos);
+                });
+
                 $("body").on("click", "#btnAceptar", function(e) {
                     e.preventDefault();
                     var datos = $(this).val();
@@ -265,8 +305,8 @@
                     var idParticipante = fila[0];
                     var idJuego = fila[1];
                     var id = fila[2];
-                    
-                    aceptarParticipante(idParticipante, idJuego,id);
+
+                    aceptarParticipante(idParticipante, idJuego, id);
                 });
                 $("body").on("click", "#btnRechazar", function(e) {
                     e.preventDefault();
@@ -275,11 +315,9 @@
                     var idParticipante = fila[0];
                     var idJuego = fila[1];
                     var id = fila[2];
-                    
-                    rechazarParticipante(idParticipante, idJuego,id);
+
+                    rechazarParticipante(idParticipante, idJuego, id);
                 });
-
-
 
                 $("body").on("click", "#btnAddEquipo", function(e) {
 

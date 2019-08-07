@@ -350,4 +350,12 @@ class ModeloParti extends CI_Model
         $resultado =$this->db->get()->result();
         return $resultado[0]->num;
     }
+
+    function getComentariosParticipantes($idEquipo){
+        $this->db->select("c.idtituloComentario_Equipo,c.tituloComentario_Equipo,c.detalleComentario_Equipo,c.fecha,concat(a.nombreAdministrador,' ',a.apellidoAdministrador) as nombreAdministrador");
+        $this->db->from("comentario_equipo c");
+        $this->db->join("administrador a", "a.idAdministrador = c.administradorComentario_Equipo");
+        $this->db->where("c.equipoComentario_Equipo", $idEquipo);
+        return $this->db->get()->result();
+    }
 }

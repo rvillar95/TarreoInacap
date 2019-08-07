@@ -211,7 +211,7 @@ class participante extends CI_Controller
                 }
             } else {
                 if ($tamano_imagen <= 10000000) {
-                    $carpeta_destino = $_SERVER['DOCUMENT_ROOT'] . 'Tarreo/lib/img/Equipos/';
+                    $carpeta_destino = $_SERVER['DOCUMENT_ROOT'] . '/Tarreo/lib/img/Equipos/';
                     $nombre_imagen = $hora . $nombre_imagen;
 
                     $nombre = $this->input->post("nombre");
@@ -389,7 +389,7 @@ class participante extends CI_Controller
                 }
             } else {
                 if ($tamano_imagen <= 10000000) {
-                    $carpeta_destino = $_SERVER['DOCUMENT_ROOT'] . 'Tarreo/lib/img/Equipos/';
+                    $carpeta_destino = $_SERVER['DOCUMENT_ROOT'] . '/Tarreo/lib/img/Equipos/';
                     $nombre_imagen = $hora . $nombre_imagen;
                     $id = $this->input->post("idEquipo");
                     $nombre = $this->input->post("nombre");
@@ -413,6 +413,16 @@ class participante extends CI_Controller
         if (count($this->session->userdata("participante")) > 0) {
             $idEquipo = $this->input->post("id");
             echo json_encode($this->modeloParti->getNumeroNotificaciones($idEquipo));
+        } else {
+            $this->load->view('Errormsg');
+        }
+    }
+
+    public function getComentariosParticipantes()
+    {
+        if (count($this->session->userdata("participante")) > 0) {
+            $idEquipo = $this->input->post("id");
+            echo json_encode($this->modeloParti->getComentariosParticipantes($idEquipo));
         } else {
             $this->load->view('Errormsg');
         }

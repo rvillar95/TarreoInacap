@@ -226,7 +226,7 @@ function getJuegosParticipante(id) {
                 }).then(function (k) {
                     if (o.capitanEquipo == id) {
 
-                        var fila = '<div class="row">  <input class="hidden" id="idEquipoSolicitud" value="' + o.idEquipo + '" />              <div class="col-md-5">          <center>          <div class="div-img sty contenedor"><img src="http://127.0.0.1/Tarreo/lib/img/Equipos/' + o.fotoEquipo + '" class="img-responsive img" alt="" /></div>    </center>            </div>                <div class="col-md-7">                    <h2 class="">' + o.nombreEquipo + ' </h2><small>Juego: ' + o.nombreJuego + ' </small></br><small>Descripción: ' + o.descripcionEquipo + '</small></br>                    <div class="m-t-md">                        <h2 class="product-main-price">' + o.integrantesEquipo + ' <small class="text-muted">Integrantes</small></h2>                    </div>                    <form id="login" name="login" method="post" action="http://127.0.0.1/Tarreo/editarEquipo" enctype="multipart/form-data">                        <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12"><label>Nombre Equipo</label> <input type="text" value="' + o.nombreEquipo + '" required name="nombre" placeholder="Ingrese Nombre Equipo" class="form-control"></div>                        <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12"><label>Descripcion Equipo</label> <input type="text" value="' + o.descripcionEquipo + '" required name="descripcion" placeholder="Ingrese Descripcion Equipo" class="form-control"></div>                        <div class="hidden"><label>Descripcion Equipo</label> <input type="text" required name="usuario" value="<?= $user[0]->idParticipante ?>"></div>                        <div class="hidden"><label>Descripcion Equipo</label> <input type="text" required name="idEquipo" value="' + o.idEquipo + '"></div>                        <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12"><label>Foto Equipo</label> <input type="file" name="foto" placeholder="Ingrese una Foto" class="form-control"></div>                        <div class="form-group form-group col-lg-12 col-md-12 col-sm-4 col-xs-12"><button type="submit" id="btnAgregarEquipo" class="btn btn-primary btn-sm">Editar Equipo</button></div>                    </form>                    <div>                <div class="btn-group"><button class="btn btn-primary btn-sm" id="btnVerSolicitudes" value="' + o.idEquipo + '" data-toggle="modal" data-target="#modal-solicitudes"> Ver Solicitudes <span class="label label-danger pull-center" id="noti">'+k+'</span></button></div> <div class="btn-group"><button class="btn btn-primary btn-sm" data-toggle="modal"  id="btnVerIntegrantes" value="' + o.idEquipo + '"  data-target="#modal-integrantes"> Ver Integrantes </button></div>                        </div>                </div>            </div></br>';
+                        var fila = '<div class="row">  <input class="hidden" id="idEquipoSolicitud" value="' + o.idEquipo + '" />              <div class="col-md-5">          <center>          <div class="div-img sty contenedor"><img src="http://127.0.0.1/Tarreo/lib/img/Equipos/' + o.fotoEquipo + '" class="img-responsive img" alt="" /></div>    </center>            </div>                <div class="col-md-7">                    <h2 class="">' + o.nombreEquipo + ' </h2><small>Juego: ' + o.nombreJuego + ' </small></br><small>Descripción: ' + o.descripcionEquipo + '</small></br>                    <div class="m-t-md">                        <h2 class="product-main-price">' + o.integrantesEquipo + ' <small class="text-muted">Integrantes</small></h2>                    </div>                    <form id="login" name="login" method="post" action="http://127.0.0.1/Tarreo/editarEquipo" enctype="multipart/form-data">                        <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12"><label>Nombre Equipo</label> <input type="text" value="' + o.nombreEquipo + '" required name="nombre" placeholder="Ingrese Nombre Equipo" class="form-control"></div>                        <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12"><label>Descripcion Equipo</label> <input type="text" value="' + o.descripcionEquipo + '" required name="descripcion" placeholder="Ingrese Descripcion Equipo" class="form-control"></div>                        <div class="hidden"><label>Descripcion Equipo</label> <input type="text" required name="usuario" value="<?= $user[0]->idParticipante ?>"></div>                        <div class="hidden"><label>Descripcion Equipo</label> <input type="text" required name="idEquipo" value="' + o.idEquipo + '"></div>                        <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12"><label>Foto Equipo</label> <input type="file" name="foto" placeholder="Ingrese una Foto" class="form-control"></div>                        <div class="form-group form-group col-lg-12 col-md-12 col-sm-4 col-xs-12"><button type="submit" id="btnAgregarEquipo" class="btn btn-primary btn-sm">Editar Equipo</button></div>                    </form>                    <div>                <div class="btn-group"><button class="btn btn-primary btn-sm" id="btnVerSolicitudes" value="' + o.idEquipo + '" data-toggle="modal" data-target="#modal-solicitudes"> Ver Solicitudes <span class="label label-danger pull-center" id="noti">' + k + '</span></button></div> <div class="btn-group"><button class="btn btn-primary btn-sm" data-toggle="modal"  id="btnVerIntegrantes" value="' + o.idEquipo + '"  data-target="#modal-integrantes"> Ver Integrantes </button></div>  <div class="btn-group"><button class="btn btn-primary btn-sm" data-toggle="modal"  id="btnVerComentario" value="' + o.idEquipo + '"  data-target="#modal-comentario"> Ver Comentarios </button></div>                        </div>                </div>            </div></br>';
                         $("#bodyJuegos").append(fila);
                     } else {
 
@@ -385,4 +385,83 @@ function getNumeroNoti(datos) {
     }
 }
 
+function addComentario() {
+    var titulo = $("#titulo").val();
+    var comentario = $("#descripcion").val();
+    var admin = $("#idAdmin").val();
+    var equipo = $("#idEquipo").val();
+    if (titulo == "" || comentario == "" || admin == "" || equipo == "") {
+        toastr.error("Verifique todos los campos", "Ingrese todos los datos!!!")
+        toastr.options = { "closeButton": true, "debug": false, "progressBar": true, "preventDuplicates": false, "positionClass": "toast-top-right", "onclick": null, "showDuration": "400", "hideDuration": "1000", "timeOut": "4000", "extendedTimeOut": "1000", "showEasing": "swing", "hideEasing": "swing", "showMethod": "show", "hideMethod": "fadeOut" }
+    } else {
+        $.ajax({
+            url: 'addComentario',
+            type: 'POST',
+            dataType: 'json',
+            data: { "titulo": titulo, "comentario": comentario, "admin": admin, "equipo": equipo }
+        }).then(function (msg) {
+            if (msg.msg == "ok") {
+                toastr.success("Comentario Adjuntado con Exito", "Exito en la Acción!!!")
+                $("#titulo").val("");
+                $("#descripcion").val("");
+                toastr.options = { "closeButton": true, "debug": false, "progressBar": true, "preventDuplicates": false, "positionClass": "toast-top-right", "onclick": null, "showDuration": "400", "hideDuration": "1000", "timeOut": "4000", "extendedTimeOut": "1000", "showEasing": "swing", "hideEasing": "swing", "showMethod": "show", "hideMethod": "fadeOut" }
+            } else if (msg.msg == "error") {
+                toastr.error("Error", "Ocurrio un error al agregar comentario")
+                toastr.options = { "closeButton": true, "debug": false, "progressBar": true, "preventDuplicates": false, "positionClass": "toast-top-right", "onclick": null, "showDuration": "400", "hideDuration": "1000", "timeOut": "4000", "extendedTimeOut": "1000", "showEasing": "swing", "hideEasing": "swing", "showMethod": "show", "hideMethod": "fadeOut" }
+            }
+        });
+    }
+}
+
+function verComentariosParticipante(datos) {
+    var id = datos;
+    if (id == "") {
+        toastr.error("Verifique todos los campos", "Ingrese todos los datos!!!")
+    } else {
+        $.ajax({
+            url: 'getComentariosParticipantes',
+            type: 'POST',
+            dataType: 'json',
+            data: { "id": id }
+        }).then(function (msg) {
+            $("#tbodyComentario").empty();
+            $.each(msg, function (i, o) {
+                var fila = "<tr><td>" + o.idtituloComentario_Equipo + "</td>";
+                fila += "<td >" + o.tituloComentario_Equipo + "</td>";
+                fila += "<td >" + o.detalleComentario_Equipo + "</td>";
+                fila += "<td >" + o.fecha + "</td>";
+                fila += "<td >" + o.nombreAdministrador + "</td></tr>";
+                $("#tbodyComentario").append(fila);
+
+            });
+        });
+    }
+}
+
+
+function editarJuego(id,estado){
+    var id = id;
+         var estado = estado;
+       if (id == "" || estado=="") {
+           toastr.error("Verifique todos los campos", "Ingrese todos los datos!!!")
+           toastr.options = {"closeButton": true, "debug": false, "progressBar": true, "preventDuplicates": false, "positionClass": "toast-top-right", "onclick": null, "showDuration": "400", "hideDuration": "1000", "timeOut": "4000", "extendedTimeOut": "1000", "showEasing": "swing", "hideEasing": "swing", "showMethod": "show", "hideMethod": "fadeOut"}
+       } else {
+           $.ajax({
+               url: 'editarJuego',
+               type: 'POST',
+               dataType: 'json',
+               data: {"id": id,"estado":estado}
+           }).then(function (msg) {
+               if (msg.msg == "ok") {
+                   toastr.success("Juego Editado", "Estado Cambiado!!!")
+                   
+                   $("#categoria").val("");
+               } else {
+                   toastr.error("", "Error el editar la Membresia!!!")
+                   toastr.options = {"closeButton": true, "debug": false, "progressBar": true, "preventDuplicates": false, "positionClass": "toast-top-right", "onclick": null, "showDuration": "400", "hideDuration": "1000", "timeOut": "4000", "extendedTimeOut": "1000", "showEasing": "swing", "hideEasing": "swing", "showMethod": "show", "hideMethod": "fadeOut"}
+               }
+           });
+       }
+   
+   }
 

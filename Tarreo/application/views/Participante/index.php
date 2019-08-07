@@ -141,7 +141,7 @@
                                 <a href=" <?php echo base_url(); ?>Equipo">
                                     <center>
                                         <div class="div-img sty contenedor">
-                                            <img src="<?php echo base_url() ?>lib/img/admin/parametros.jpg" class="img-responsive img" alt="" />
+                                            <img src="<?php echo base_url() ?>lib/img/admin/equipos.png" class="img-responsive img" alt="" />
                                         </div>
                                     </center>
                                 </a>
@@ -168,7 +168,7 @@
                                 <a href=" <?php echo base_url(); ?>Postular">
                                     <center>
                                         <div class="div-img sty contenedor">
-                                            <img src="<?php echo base_url() ?>lib/img/admin/parametros.jpg" class="img-responsive img" alt="" />
+                                            <img src="<?php echo base_url() ?>lib/img/admin/fechas.jpg" class="img-responsive img" alt="" />
                                         </div>
                                     </center>
                                 </a>

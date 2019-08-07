@@ -77,7 +77,11 @@
                                     </span>
                                 </div>
                             </div>
-                            <div class="form-group col-lg-3 col-md-3 col-sm-4 col-xs-12"><label>Tipo Juego</label> <select class="form-control m-b" required name="tipo"><option disabled selected>Seleccione Tipo</option><option value="1">Individual</option><option value="2">Equipo</option></select></div>
+                            <div class="form-group col-lg-3 col-md-3 col-sm-4 col-xs-12"><label>Tipo Juego</label> <select class="form-control m-b" required name="tipo">
+                                    <option disabled selected>Seleccione Tipo</option>
+                                    <option value="1">Individual</option>
+                                    <option value="2">Equipo</option>
+                                </select></div>
                             <div class="form-group col-lg-3 col-md-3 col-sm-4 col-xs-12"><label>Foto Juego (300 x 400)</label> <input type="file" required name="foto" placeholder="300 x 400px" class="form-control"></div>
                             <div class="form-group form-group col-lg-3 col-md-3 col-sm-4 col-xs-12"><button type="submit" id="btnAgregarUsuario" class="btn btn-primary" style="background-color: black; color: white; ">Registrar Juego</button></div>
                         </form>
@@ -91,7 +95,7 @@
                 <div class="row" style="padding: 20px;">
                     <h2><strong>Registros de Juegos</strong></h2>
                     <div class="table-responsive">
-                        <table class="table table-striped table-bordered table-hover dataTables-juegos">
+                        <table id="juego" class="table table-striped table-bordered table-hover dataTables-juegos">
                             <thead>
                                 <tr>
                                     <th>ID</th>
@@ -192,7 +196,22 @@
 
                 });
                 $('.clockpicker').clockpicker();
+                $("body").on("click", "#btnEditarMembresia", function(e) {
 
+                    e.preventDefault();
+
+                    var id = $(this).parent().parent().children()[0];
+
+                    var estado = $(this).parent().parent().children()[7];
+
+                    editarJuego($(id).text(), $(estado).text());
+
+                    var table = $('.dataTables-juegos').DataTable();
+
+                    table.ajax.reload(function(json) {
+                        $('#btnEditarMembresia').val(json.lastInput);
+                    });
+                });
 
                 $("#btn").click(function(e) {
                     e.preventDefault();

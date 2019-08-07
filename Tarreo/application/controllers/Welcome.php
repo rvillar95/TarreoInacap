@@ -93,7 +93,7 @@ class Welcome extends CI_Controller
                 $apellidos = $this->input->post("apellidos");
                 $numero = $this->input->post("numero");
                 $correo = $this->input->post("correo");
-                
+                $clave = $this->input->post("clave");
 
                 $resultado = $this->indexModel->addParticipante($rut, $nombres, $apellidos, $correo, $nombre_imagen, $numero, $clave);
 

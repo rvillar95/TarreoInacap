@@ -92,49 +92,15 @@
     <section id="juegos" class="blue-bg">
         <center>
             <div class="row" style="padding: 10px;">
+                <div class="row">
+                    <div class="col-lg-12 text-center">
+                        <div class="navy-line"></div>
+                        <h1>Juegos Tarreo</h1>
+                        <p>Aca podras encontrar los juegos del tarreo </p>
+                    </div>
+                </div>
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" id="fotosJuegos">
-                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
-                        <div>
-                            <h1><strong>League Of Legends</strong></h1>
-                            <a href="#!" class="contenedor">
-                                <img src="<?php echo base_url() ?>lib/img/lol.jpg" class="img-responsive imagen" alt="" />
-                            </a>
-                            <div class="contact-box-footer">
-                                <div class="m-t-xs btn-group">
-                                    <p style="color: white;">Postulantes: <span id='postulantes'>0</span></p>
-                                    <button type="submit" class="btn btn-primary"><strong>Postular</strong></button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
-                        <div>
-                            <h1><strong>Fifa 2019</strong></h1>
-                            <a href="#!" class="contenedor">
-                                <img src="<?php echo base_url() ?>lib/img/fifa.jpg" class="img-responsive imagen" alt="" />
-                            </a>
-                            <div class="contact-box-footer">
-                                <div class="m-t-xs btn-group">
-                                    <p style="color: white;">Postulantes: <span id='postulantes'>0</span></p>
-                                    <button type="submit" class="btn btn-primary"><strong>Postular</strong></button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
-                        <div>
-                            <h1><strong>CSGO</strong></h1>
-                            <a href="#!" class="contenedor">
-                                <img src="<?php echo base_url() ?>lib/img/csgo.jpg" class="img-responsive imagen" alt="" />
-                            </a>
-                            <div class="contact-box-footer">
-                                <div class="m-t-xs btn-group">
-                                    <p style="color: white;">Postulantes: <span id='postulantes'>0</span></p>
-                                    <button type="submit" class="btn btn-primary"><strong>Postular</strong></button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    
                 </div>
             </div>
 
@@ -165,9 +131,10 @@
                 <div class="col-sm-3 col-xs-6  wow">
                     <div class="team-member">
                         <img src="<?php echo base_url() ?>lib/img/user.png" class="img-responsive img-circle img-small" alt="">
-                        <h4><span class="navy">Benjamin</span> Bustos</h4>
+                        <h4><span class="navy">Carolina</span> Cornejo</h4>
                     </div>
                 </div>
+
                 <div class="col-sm-3 col-xs-6  wow">
                     <div class="team-member">
                         <img src="<?php echo base_url() ?>lib/img/user.png" class="img-responsive img-circle img-small" alt="">
@@ -219,7 +186,6 @@
                     <div class="team-member">
                         <img src="<?php echo base_url() ?>lib/img/user.png" class="img-responsive img-circle img-small" alt="">
                         <h4><span class="navy">Jorge</span> Casanova</h4>
-                        <p>Descripcion de la persona...</p>
                     </div>
                 </div>
                 <div class="col-sm-3 col-xs-6  wow">
@@ -251,9 +217,10 @@
                 <div class="col-sm-3 col-xs-6  wow">
                     <div class="team-member">
                         <img src="<?php echo base_url() ?>lib/img/user.png" class="img-responsive img-circle img-small" alt="">
-                        <h4><span class="navy">Carolina</span> Cornejo</h4>
+                        <h4><span class="navy">Benjamin</span> Bustos</h4>
                     </div>
                 </div>
+
             </div>
             <div class="row m-b-lg">
                 <div class="col-lg-12 text-center">
@@ -274,11 +241,6 @@
                         <img src="<?php echo base_url() ?>lib/img/user.png" class="img-responsive img-circle img-small" alt="">
                         <h4><span class="navy">Carlos</span> Avila</h4>
                     </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-8 col-lg-offset-2 text-center m-t-lg m-b-lg">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut eaque, laboriosam veritatis, quos non quis ad perspiciatis, totam corporis ea, alias ut unde.</p>
                 </div>
             </div>
         </div>
@@ -306,7 +268,7 @@
                                 <p>Conference on the sales results for the previous year. Monica please examine sales trends in marketing and products. Below please find the current status of the sale.
                                 </p>
                                 <a href="#" class="btn btn-xs btn-primary"> More info</a>
-                                <span class="vertical-date"> Jueves  <br /> <small>Agosto 29</small> </span>
+                                <span class="vertical-date"> Jueves <br /> <small>Agosto 29</small> </span>
                             </div>
                         </div>
 
@@ -368,7 +330,7 @@
                                 <h2>Implementation</h2>
                                 <p>Go to shop and find some products. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's. </p>
                                 <a href="#" class="btn btn-xs btn-primary"> More info</a>
-                                <span class="vertical-date"> Jueves  <br /> <small>Agosto 29</small> </span>
+                                <span class="vertical-date"> Jueves <br /> <small>Agosto 29</small> </span>
                             </div>
                         </div>
 
@@ -385,17 +347,8 @@
                 <p>Aca encontraras los equipos y sus integrantes. </p>
             </div>
         </div>
-        <div class="row">
-            <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
-                <center>
-                    <h2>SK Telecom T1 | League Of Legends</h2>
-                    <img src="<?php echo base_url() ?>lib/img/Equipos/SKT.png" style="height: 175px; width: 175px;" alt="SK Telecom T1" />
-                    <p style="text-align: justify">SK Telecom T1 es conocido para muchos como el mejor equipo de la historia de League of Legends. Fue fundado en febrero de 2014, y por su club han pasado numerosos jugadores de prestigio, como por ejemplo Faker, el mejor del mundo. En sus vitrinas cuentan con numerosos títulos, entre los que encontramos varias LCK y tres campeonatos del mundo.</p>
-                </center>
-                <p><button type="button" class="btn btn-primary" data-toggle="modal" data-target=".modal-equipos">
-                        Detalles &raquo;
-                    </button></p>
-            </div>
+        <div class="row" id="equiposPublico">
+
             <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
                 <center>
                     <h2>Fnatic</h2>
@@ -460,7 +413,8 @@
             </div>
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 text-center m-t-lg m-b-lg">
-                    <p><strong>&copy; 2019 Soluciones Villar</strong><br /></p>
+                    <p><a href="https://www.solucionesvillar.cl" style="color: gray"><strong>&copy; 2019 Soluciones Villar</strong><br /></a></p>
+
                 </div>
             </div>
         </div>
@@ -618,12 +572,30 @@
             </div>
         </div>
     </div>
+    <div id="modal-foto" class="modal fade " tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+        <div class="modal-dialog modal-lg" role="document">
+
+            <div class="modal-content animated bounceInRight">
+                <div class="modal-header">
+                    <h1><strong>
+                            <center>TARREO INFORMATICA 2019</center>
+                        </strong></h1>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span></button>
+                </div>
+                <center><img src="<?php echo base_url() ?>lib/img/admin/img.jpeg" class="img-responsive"> </center>
+
+            </div>
+        </div>
+    </div>
+
 
     <!-- Small modal -->
 
 
 
     <!-- Mainly scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.1.3/js.cookie.min.js"></script>
     <script src="<?php echo base_url() ?>lib/js/rut_1.js" type="text/javascript"></script>
     <script src="<?php echo base_url() ?>lib/js/myjs.js" type="text/javascript"></script>
     <script src="<?php echo base_url() ?>lib/js/jquery-2.1.1.js"></script>
@@ -637,6 +609,7 @@
     <script src="<?php echo base_url() ?>lib/js/rut.js" type="text/javascript"></script>
     <script>
         $(document).ready(function() {
+            verEquiposPublico();
             getFotosJuegos();
             getFechasJuegos();
             $('#myModal5').modal('hide');
@@ -650,6 +623,11 @@
                 IniciarSesionParticipante();
             });
 
+            function hola() {
+                $("#modal-foto").modal('show')
+            }
+
+            setTimeout(hola, 3000);
 
             // Page scrolling feature
             $('a.page-scroll').bind('click', function(event) {

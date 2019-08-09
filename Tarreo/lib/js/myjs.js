@@ -43,7 +43,7 @@ function IniciarSesionParticipante() {
                 alert("error");
             } else if (msg.msg == "ok") {
                 window.location.href = 'http://127.0.0.1/Tarreo/Participante';
-                alert("funca");
+                
             } else if (msg.msg == "inactivo") {
                 alert("Cuenta Inactiva");
             } else if (msg.msg == "nada") {
@@ -226,7 +226,7 @@ function getJuegosParticipante(id) {
                 }).then(function (k) {
                     if (o.capitanEquipo == id) {
 
-                        var fila = '<div class="row">  <input class="hidden" id="idEquipoSolicitud" value="' + o.idEquipo + '" />              <div class="col-md-5">          <center>          <div class="div-img sty contenedor"><img src="http://127.0.0.1/Tarreo/lib/img/Equipos/' + o.fotoEquipo + '" class="img-responsive img" alt="" /></div>    </center>            </div>                <div class="col-md-7">                    <h2 class="">' + o.nombreEquipo + ' </h2><small>Juego: ' + o.nombreJuego + ' </small></br><small>Descripción: ' + o.descripcionEquipo + '</small></br>                    <div class="m-t-md">                        <h2 class="product-main-price">' + o.integrantesEquipo + ' <small class="text-muted">Integrantes</small></h2>                    </div>                    <form id="login" name="login" method="post" action="http://127.0.0.1/Tarreo/editarEquipo" enctype="multipart/form-data">                        <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12"><label>Nombre Equipo</label> <input type="text" value="' + o.nombreEquipo + '" required name="nombre" placeholder="Ingrese Nombre Equipo" class="form-control"></div>                        <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12"><label>Descripcion Equipo</label> <input type="text" value="' + o.descripcionEquipo + '" required name="descripcion" placeholder="Ingrese Descripcion Equipo" class="form-control"></div>                        <div class="hidden"><label>Descripcion Equipo</label> <input type="text" required name="usuario" value="<?= $user[0]->idParticipante ?>"></div>                        <div class="hidden"><label>Descripcion Equipo</label> <input type="text" required name="idEquipo" value="' + o.idEquipo + '"></div>                        <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12"><label>Foto Equipo</label> <input type="file" name="foto" placeholder="Ingrese una Foto" class="form-control"></div>                        <div class="form-group form-group col-lg-12 col-md-12 col-sm-4 col-xs-12"><button type="submit" id="btnAgregarEquipo" class="btn btn-primary btn-sm">Editar Equipo</button></div>                    </form>                    <div>                <div class="btn-group"><button class="btn btn-primary btn-sm" id="btnVerSolicitudes" value="' + o.idEquipo + '" data-toggle="modal" data-target="#modal-solicitudes"> Ver Solicitudes <span class="label label-danger pull-center" id="noti">' + k + '</span></button></div> <div class="btn-group"><button class="btn btn-primary btn-sm" data-toggle="modal"  id="btnVerIntegrantes" value="' + o.idEquipo + '"  data-target="#modal-integrantes"> Ver Integrantes </button></div>  <div class="btn-group"><button class="btn btn-primary btn-sm" data-toggle="modal"  id="btnVerComentario" value="' + o.idEquipo + '"  data-target="#modal-comentario"> Ver Comentarios </button></div>                        </div>                </div>            </div></br>';
+                        var fila = '<div class="row">  <input class="hidden" id="idEquipoSolicitud" value="' + o.idEquipo + '" />              <div class="col-md-5">          <center>          <div class="div-img sty contenedor"><img src="http://127.0.0.1/Tarreo/lib/img/Equipos/' + o.fotoEquipo + '" class="img-responsive img" alt="" /></div>    </center>            </div>                <div class="col-md-7">                    <h2 class="">' + o.nombreEquipo + ' </h2><small>Juego: ' + o.nombreJuego + ' </small></br><small>Descripción: ' + o.descripcionEquipo + '</small></br><small>Estado Equipo: ' + o.nombreEstadoE + ' </small>                    <div class="m-t-md">                        <h2 class="product-main-price">' + o.integrantesEquipo + ' <small class="text-muted">Integrantes</small></h2>                    </div>                    <form id="login" name="login" method="post" action="http://127.0.0.1/Tarreo/editarEquipo" enctype="multipart/form-data">                        <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12"><label>Nombre Equipo</label> <input type="text" value="' + o.nombreEquipo + '" required name="nombre" placeholder="Ingrese Nombre Equipo" class="form-control"></div>                        <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12"><label>Descripcion Equipo</label> <input type="text" value="' + o.descripcionEquipo + '" required name="descripcion" placeholder="Ingrese Descripcion Equipo" class="form-control"></div>                        <div class="hidden"><label>Descripcion Equipo</label> <input type="text" required name="usuario" value="<?= $user[0]->idParticipante ?>"></div>                        <div class="hidden"><label>Descripcion Equipo</label> <input type="text" required name="idEquipo" value="' + o.idEquipo + '"></div>                        <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12"><label>Foto Equipo</label> <input type="file" name="foto" placeholder="Ingrese una Foto" class="form-control"></div>                        <div class="form-group form-group col-lg-12 col-md-12 col-sm-4 col-xs-12"><button type="submit" id="btnAgregarEquipo" class="btn btn-primary btn-sm">Editar Equipo</button></div>                    </form>                    <div>                <div class="btn-group"><button class="btn btn-primary btn-sm" id="btnVerSolicitudes" value="' + o.idEquipo + '" data-toggle="modal" data-target="#modal-solicitudes"> Ver Solicitudes <span class="label label-danger pull-center" id="noti">' + k + '</span></button></div> <div class="btn-group"><button class="btn btn-primary btn-sm" data-toggle="modal"  id="btnVerIntegrantes" value="' + o.idEquipo + '"  data-target="#modal-integrantes"> Ver Integrantes </button></div>  <div class="btn-group"><button class="btn btn-primary btn-sm" data-toggle="modal"  id="btnVerComentario" value="' + o.idEquipo + '"  data-target="#modal-comentario"> Ver Comentarios </button></div>                        </div>                </div>            </div></br>';
                         $("#bodyJuegos").append(fila);
                     } else {
 
@@ -266,7 +266,10 @@ function agregarSolicitud(idEquipo, idUsuario) {
             } else if (msg.msg == "no") {
                 toastr.error("Error", "Usted ya es Capitan de un Equipo")
                 toastr.options = { "closeButton": true, "debug": false, "progressBar": true, "preventDuplicates": false, "positionClass": "toast-top-right", "onclick": null, "showDuration": "400", "hideDuration": "1000", "timeOut": "4000", "extendedTimeOut": "1000", "showEasing": "swing", "hideEasing": "swing", "showMethod": "show", "hideMethod": "fadeOut" }
-            }
+            } else if (msg.msg == "nope") {
+                toastr.error("Error", "Ya estas en un equipo asociado al mismo juego");
+                toastr.options = { "closeButton": true, "debug": false, "progressBar": true, "preventDuplicates": false, "positionClass": "toast-top-right", "onclick": null, "showDuration": "400", "hideDuration": "1000", "timeOut": "4000", "extendedTimeOut": "1000", "showEasing": "swing", "hideEasing": "swing", "showMethod": "show", "hideMethod": "fadeOut" }
+            } 
         });
     }
 }
@@ -439,29 +442,119 @@ function verComentariosParticipante(datos) {
 }
 
 
-function editarJuego(id,estado){
+function editarJuego(id, estado) {
     var id = id;
-         var estado = estado;
-       if (id == "" || estado=="") {
-           toastr.error("Verifique todos los campos", "Ingrese todos los datos!!!")
-           toastr.options = {"closeButton": true, "debug": false, "progressBar": true, "preventDuplicates": false, "positionClass": "toast-top-right", "onclick": null, "showDuration": "400", "hideDuration": "1000", "timeOut": "4000", "extendedTimeOut": "1000", "showEasing": "swing", "hideEasing": "swing", "showMethod": "show", "hideMethod": "fadeOut"}
-       } else {
-           $.ajax({
-               url: 'editarJuego',
-               type: 'POST',
-               dataType: 'json',
-               data: {"id": id,"estado":estado}
-           }).then(function (msg) {
-               if (msg.msg == "ok") {
-                   toastr.success("Juego Editado", "Estado Cambiado!!!")
-                   
-                   $("#categoria").val("");
-               } else {
-                   toastr.error("", "Error el editar la Membresia!!!")
-                   toastr.options = {"closeButton": true, "debug": false, "progressBar": true, "preventDuplicates": false, "positionClass": "toast-top-right", "onclick": null, "showDuration": "400", "hideDuration": "1000", "timeOut": "4000", "extendedTimeOut": "1000", "showEasing": "swing", "hideEasing": "swing", "showMethod": "show", "hideMethod": "fadeOut"}
-               }
-           });
-       }
-   
-   }
+    var estado = estado;
+    if (id == "" || estado == "") {
+        toastr.error("Verifique todos los campos", "Ingrese todos los datos!!!")
+        toastr.options = { "closeButton": true, "debug": false, "progressBar": true, "preventDuplicates": false, "positionClass": "toast-top-right", "onclick": null, "showDuration": "400", "hideDuration": "1000", "timeOut": "4000", "extendedTimeOut": "1000", "showEasing": "swing", "hideEasing": "swing", "showMethod": "show", "hideMethod": "fadeOut" }
+    } else {
+        $.ajax({
+            url: 'editarJuego',
+            type: 'POST',
+            dataType: 'json',
+            data: { "id": id, "estado": estado }
+        }).then(function (msg) {
+            if (msg.msg == "ok") {
+                toastr.success("Juego Editado", "Estado Cambiado!!!")
 
+                $("#categoria").val("");
+            } else {
+                toastr.error("", "Error el editar la Membresia!!!")
+                toastr.options = { "closeButton": true, "debug": false, "progressBar": true, "preventDuplicates": false, "positionClass": "toast-top-right", "onclick": null, "showDuration": "400", "hideDuration": "1000", "timeOut": "4000", "extendedTimeOut": "1000", "showEasing": "swing", "hideEasing": "swing", "showMethod": "show", "hideMethod": "fadeOut" }
+            }
+        });
+    }
+
+}
+
+function verEquiposPublico() {
+    var hola = 'http://127.0.0.1/Tarreo/getJuegosPublico';
+    $("#equiposPublico").empty();
+    $.getJSON(hola, function (result) {
+        $.each(result, function (i, o) {
+
+
+            var fila = '<div class="col-lg-4 col-md-6 col-sm-6 col-xs-12"><center><h2>' + o.nombreEquipo + '</h2><img src="http://127.0.0.1/Tarreo/lib/img/Equipos/' + o.fotoEquipo + '" class="img-responsive" alt="SK Telecom T1" />            <p style="text-align: justify">' + o.descripcionEquipo + '</p>        </center>        <p><button type="button" class="btn btn-primary" id="verEquipos" data-toggle="modal" value="' + o.idEquipo + '" data-target=".modal-equipos">            Detalles &raquo;                    </button></p>    </div>';
+
+            $("#equiposPublico").append(fila);
+        });
+
+    });
+
+}
+
+function editarEstado() {
+    var id = $("#idEquipo").val();
+    var estado = $("#estado").val();
+    if (id=="" || estado == null) {
+        toastr.error("Verifique todos los campos", "Ingrese todos los datos!!!")
+        toastr.options = { "closeButton": true, "debug": false, "progressBar": true, "preventDuplicates": false, "positionClass": "toast-top-right", "onclick": null, "showDuration": "400", "hideDuration": "1000", "timeOut": "4000", "extendedTimeOut": "1000", "showEasing": "swing", "hideEasing": "swing", "showMethod": "show", "hideMethod": "fadeOut" }
+    } else {
+        $.ajax({
+            url: 'editarEstado',
+            type: 'POST',
+            dataType: 'json',
+            data: { "id": id, "estado": estado}
+        }).then(function (msg) {
+            if (msg.msg == "ok") {
+                toastr.success("Estado Editado", "Exito en la Acción!!!")
+                $("#titulo").val("");
+                $("#descripcion").val("");
+                toastr.options = { "closeButton": true, "debug": false, "progressBar": true, "preventDuplicates": false, "positionClass": "toast-top-right", "onclick": null, "showDuration": "400", "hideDuration": "1000", "timeOut": "4000", "extendedTimeOut": "1000", "showEasing": "swing", "hideEasing": "swing", "showMethod": "show", "hideMethod": "fadeOut" }
+            } else if (msg.msg == "error") {
+                toastr.error("Error", "Ocurrio un error al editar estado")
+                toastr.options = { "closeButton": true, "debug": false, "progressBar": true, "preventDuplicates": false, "positionClass": "toast-top-right", "onclick": null, "showDuration": "400", "hideDuration": "1000", "timeOut": "4000", "extendedTimeOut": "1000", "showEasing": "swing", "hideEasing": "swing", "showMethod": "show", "hideMethod": "fadeOut" }
+            }
+        });
+    }
+}
+
+function verIntegrantesAdmin(id) {
+    var id = id;
+    alert(id);
+    if (id == "") {
+        toastr.error("Verifique todos los campos", "Ingrese todos los datos!!!")
+    } else {
+        $.ajax({
+            url: 'getIntegratesEquipoAdmin',
+            type: 'POST',
+            dataType: 'json',
+            data: { "id": id }
+        }).then(function (msg) {
+            $("#tbodyDetalle").empty();
+            $.each(msg, function (i, o) {
+                var fila = "<tr><td>" + o.idParticipante + "</td>";
+                fila += "<td >" + o.rutParticipante + "</td>";
+                fila += "<td >" + o.nombreParticipante + "</td>";
+                fila += "<td >" + o.fotoParticipante + "</td></tr>";
+                $("#tbodyDetalle").append(fila);
+
+            });
+        });
+    }
+}
+
+
+function getParticipantesAdmin(id) {
+    var id = id;
+    if (id == "") {
+        toastr.error("Verifique todos los campos", "Ingrese todos los datos!!!")
+    } else {
+        $.ajax({
+            url: 'getParticipantesAdmin',
+            type: 'POST',
+            dataType: 'json',
+            data: { "id": id }
+        }).then(function (msg) {
+            $("#tbodyDetalle").empty();
+            $.each(msg, function (i, o) {
+                var fila = "<tr><td>" + o.idParticipante + "</td>";
+                fila += "<td >" + o.rutParticipante + "</td>";
+                fila += "<td >" + o.nombreParticipante + "</td>";
+                fila += "<td >" + o.fotoParticipante + "</td></tr>";
+                $("#tbodyDetalle").append(fila);
+            });
+        });
+    }
+}

@@ -150,4 +150,53 @@ class ModeloAdmin extends CI_Model
         );
         $this->db->insert("comentario_equipo", $data);
     }
+
+    function editarEstado($id, $estado)
+    {
+        $data = array("estadoEquipo" => $estado);
+        $this->db->where('idEquipo', $id);
+        return $this->db->update("equipo", $data);
+    }
+
+    function getIntegratesEquipoAdmin($idEquipo)
+    {
+        $prueba = '<img class="img-responsive" style="width: 50px; height:50px;" src="http://127.0.0.1/Tarreo/lib/img/Jugadores/';
+        $prueba2 = '" alt=""/>';
+        $this->db->select("p.idParticipante,p.rutParticipante,concat(p.nombreParticipante,' ',p.apellidoParticipante) as nombreParticipante, concat('$prueba',p.fotoParticipante,'$prueba2') as fotoParticipante");
+        $this->db->from("participante p");
+        $this->db->join("estado e", "e.idEstado = p.estadoParticipante");
+        $this->db->join("equipo_participante k", "k.participanteEquipo = p.idParticipante");
+        $this->db->join("estado_participante a", "a.idEstadoP = k.estadoEquipo_Participante");
+        $this->db->where("k.teamEquipo", $idEquipo);
+        $this->db->where("p.estadoParticipante", 1);
+        $this->db->where("k.estadoEquipo_Participante", 3);
+        return $this->db->get()->result();
+    }
+
+    function verjuegosIndividuales()
+    {
+        $prueba = '<img class="img-responsive" style="width: 130px; height:125px;" src="http://127.0.0.1/Tarreo/lib/img/Juegos/';
+        $prueba2 = '" alt=""/>';
+        $this->db->select("j.idJuego,j.nombreJuego,j.descripcionJuego,concat('$prueba',j.fotoJuego,'$prueba2') as fotoJuego,j.postulantesJuego,j.fechaRealizacionJuego,j.annoJuego");
+        $this->db->from("juegos j");
+        $this->db->join("estado e", "e.idEstado = j.estadoJuego");
+        $this->db->where("j.estadoJuego", 1);
+        $this->db->where("j.tipojuego", 1);
+        return $this->db->get();
+    }
+
+    function verParticipantesJuegos($id)
+    {
+        $prueba = '<img class="img-responsive" style="width: 50px; height:50px;" src="http://127.0.0.1/Tarreo/lib/img/Jugadores/';
+        $prueba2 = '" alt=""/>';
+        $this->db->select("p.idParticipante,p.rutParticipante,concat(p.nombreParticipante,' ',p.apellidoParticipante) as nombreParticipante, concat('$prueba',p.fotoParticipante,'$prueba2') as fotoParticipante");
+        $this->db->from("participante p");
+        $this->db->join("estado e", "e.idEstado = p.estadoParticipante");
+        $this->db->join("postulantes k", "k.participantePostulante = p.idParticipante");
+        $this->db->join("juegos j", "j.idJuego = k.juegoPostulante");
+        $this->db->where("k.juegoPostulante", $id);
+        $this->db->where("p.estadoParticipante", 1);
+        $this->db->where("j.estadoJuego", 1);
+        return $this->db->get()->result();
+    }
 }

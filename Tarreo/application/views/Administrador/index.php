@@ -153,7 +153,7 @@
                                     </div>
                                 </div>
                                 <div class="ibox-content" style="padding: 0px;">
-                                    <a href=" <?php echo base_url(); ?>ModuloFechas">
+                                    <a href=" <?php echo base_url(); ?>EquiposIndividuales">
                                         <center>
                                             <div class="div-img sty" >
                                                 <img src="<?php echo base_url() ?>lib/img/admin/fechas.jpg"  class="img-responsive img" alt=""/>

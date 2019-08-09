@@ -19,8 +19,9 @@ class Welcome extends CI_Controller
     {
         $this->load->view("registro.php");
     }
-    public function inicio()
-    {
+   
+
+    public function exito(){
         $this->load->view("participante.php");
     }
 
@@ -29,6 +30,8 @@ class Welcome extends CI_Controller
         parent::__construct();
         $this->load->model("indexModel");
     }
+
+    
 
 
 
@@ -71,13 +74,13 @@ class Welcome extends CI_Controller
             $apellidos = $this->input->post("apellidos");
             $numero = $this->input->post("numero");
             $correo = $this->input->post("correo");
-           
+
 
             $resultado = $this->indexModel->addParticipanteSinFoto($rut, $nombres, $apellidos, $correo, $numero, $clave);
 
             if ($resultado == "ok") {
                 move_uploaded_file($_FILES['foto']['tmp_name'], $carpeta_destino . $nombre_imagen);
-                redirect("registro");
+                redirect("Exito");
             } else if ($resultado == "no") {
                 echo "Rut ya registrado";
             } else if ($resultado == "error") {
@@ -99,7 +102,7 @@ class Welcome extends CI_Controller
 
                 if ($resultado == "ok") {
                     move_uploaded_file($_FILES['foto']['tmp_name'], $carpeta_destino . $nombre_imagen);
-                    redirect("index");
+                    redirect("Exito");
                 } else if ($resultado == "no") {
                     echo "Rut ya registrado";
                 } else if ($resultado == "error") {
@@ -139,8 +142,14 @@ class Welcome extends CI_Controller
         }
     }
 
-    public function getFechasJuegos(){
+    public function getFechasJuegos()
+    {
         echo json_encode($this->indexModel->getFechasJuegos());
+    }
+
+    public function getJuegosPublico()
+    {
+        echo json_encode($this->indexModel->getJuegosPublico());
     }
 
     public function cerrarSesion()

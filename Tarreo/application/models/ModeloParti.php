@@ -111,29 +111,41 @@ class ModeloParti extends CI_Model
         $this->db->where('juegoEquipo', $equipo);
         $resultado = $this->db->count_all_results();
 
+        $this->db->select('count (*)');
+        $this->db->from('equipo_participante a');
+        $this->db->join('equipo e', 'e.idEquipo = a.teamEquipo');
+        $this->db->join('juegos j', 'j.idJuego = e.juegoEquipo');
+        $this->db->where('j.idJuego', $equipo);
+        $this->db->where('a.participanteEquipo', $usuario);
+        $resultado2 = $this->db->count_all_results();
+
+
         if ($resultado == 0) {
+            if ($resultado2 <= 0) {
+                $data = array(
+                    "nombreEquipo" => $nombre,
+                    "descripcionEquipo" => $descripcion,
+                    "fotoEquipo" => $nombre_imagen,
+                    "integrantesEquipo" => 1,
+                    "estadoEquipo" => 3,
+                    "capitanEquipo" => $usuario,
+                    "juegoEquipo" => $equipo
+                );
+                $this->db->insert("equipo", $data);
 
-            $data = array(
-                "nombreEquipo" => $nombre,
-                "descripcionEquipo" => $descripcion,
-                "fotoEquipo" => $nombre_imagen,
-                "integrantesEquipo" => 1,
-                "estadoEquipo" => 3,
-                "capitanEquipo" => $usuario,
-                "juegoEquipo" => $equipo
-            );
-            $this->db->insert("equipo", $data);
+                $id = $this->getUltimoEquipo();
 
-            $id = $this->getUltimoEquipo();
+                $data2 = array(
+                    "participanteEquipo" => $usuario,
+                    "teamEquipo" => $id,
+                    "estadoEquipo_Participante" => 3
+                );
+                $this->db->insert("equipo_participante", $data2);
 
-            $data2 = array(
-                "participanteEquipo" => $usuario,
-                "teamEquipo" => $id,
-                "estadoEquipo_Participante" => 3
-            );
-            $this->db->insert("equipo_participante", $data2);
-
-            return "ok";
+                return "ok";
+            } else {
+                return "nope";
+            }
         } else {
             return "no";
         }
@@ -148,28 +160,41 @@ class ModeloParti extends CI_Model
         $this->db->where('juegoEquipo', $equipo);
         $resultado = $this->db->count_all_results();
 
+
+        $this->db->select('count (*)');
+        $this->db->from('equipo_participante a');
+        $this->db->join('equipo e', 'e.idEquipo = a.teamEquipo');
+        $this->db->join('juegos j', 'j.idJuego = e.juegoEquipo');
+        $this->db->where('j.idJuego', $equipo);
+        $this->db->where('a.participanteEquipo', $usuario);
+        $resultado2 = $this->db->count_all_results();
+
         if ($resultado == 0) {
+            if ($resultado2 <= 0) {
 
-            $data = array(
-                "nombreEquipo" => $nombre,
-                "descripcionEquipo" => $descripcion,
-                "fotoEquipo" => "skt1.jpg",
-                "integrantesEquipo" => 1,
-                "estadoEquipo" => 3,
-                "capitanEquipo" => $usuario,
-                "juegoEquipo" => $equipo
-            );
-            $this->db->insert("equipo", $data);
-            $id = $this->getUltimoEquipo();
+                $data = array(
+                    "nombreEquipo" => $nombre,
+                    "descripcionEquipo" => $descripcion,
+                    "fotoEquipo" => "skt1.jpg",
+                    "integrantesEquipo" => 1,
+                    "estadoEquipo" => 3,
+                    "capitanEquipo" => $usuario,
+                    "juegoEquipo" => $equipo
+                );
+                $this->db->insert("equipo", $data);
+                $id = $this->getUltimoEquipo();
 
-            $data2 = array(
-                "participanteEquipo" => $usuario,
-                "teamEquipo" => $id,
-                "estadoEquipo_Participante" => 3
-            );
-            $this->db->insert("equipo_participante", $data2);
+                $data2 = array(
+                    "participanteEquipo" => $usuario,
+                    "teamEquipo" => $id,
+                    "estadoEquipo_Participante" => 3
+                );
+                $this->db->insert("equipo_participante", $data2);
 
-            return "ok";
+                return "ok";
+            } else {
+                return "nope";
+            }
         } else {
             return "no";
         }
@@ -201,7 +226,7 @@ class ModeloParti extends CI_Model
         $this->db->join("postulantes n", "n.juegoPostulante = e.juegoEquipo");
         $this->db->where("e.estadoEquipo", 1);
         $this->db->where("n.participantePostulante", $id);
-        
+
         return $this->db->get();
     }
 
@@ -218,21 +243,35 @@ class ModeloParti extends CI_Model
         $this->db->where('capitanEquipo', $idUsuario);
         $this->db->where('idEquipo', $idEquipo);
         $resultado2 = $this->db->count_all_results();
-        if ($resultado2 == 0) {
-            if ($resultado == 0) {
-                $data = array(
-                    "participanteEquipo" => $idUsuario,
-                    "teamEquipo" => $idEquipo,
-                    "estadoEquipo_Participante" => 1
-                );
-                $this->db->insert("equipo_participante", $data);
-                return "ok";
+
+        $this->db->select('count (*)');
+        $this->db->from('equipo_participante a');
+        $this->db->join('equipo e', 'e.idEquipo = a.teamEquipo');
+        $this->db->join('juegos j', 'j.idJuego = e.juegoEquipo');
+        $this->db->where('a.participanteEquipo', $idUsuario);
+        $this->db->where('a.estadoEquipo_Participante', 3);
+        $resultado3 = $this->db->count_all_results();
+        if ($resultado3 == 0) {
+            if ($resultado2 == 0) {
+                if ($resultado == 0) {
+
+                    $data = array(
+                        "participanteEquipo" => $idUsuario,
+                        "teamEquipo" => $idEquipo,
+                        "estadoEquipo_Participante" => 1
+                    );
+                    $this->db->insert("equipo_participante", $data);
+                    return "ok";
+                } else {
+                    return "no";
+                }
             } else {
-                return "no";
+                return "noo";
             }
         } else {
-            return "noo";
+            return "nope";
         }
+
 
         return "error";
     }
@@ -284,62 +323,64 @@ class ModeloParti extends CI_Model
         $this->db->where('p.juegoEquipo', $idJuego);
         $this->db->where('e.estadoEquipo_Participante', 3);
         $resultado = $this->db->count_all_results();
-        
+
         if ($resultado == 0) {
             $this->db->select('e.idEquipo');
             $this->db->from('equipo e');
-            $this->db->join('equipo_participante a','a.teamEquipo = e.idEquipo');
-            $this->db->where('e.juegoEquipo',$idJuego);
-            $this->db->where('a.participanteEquipo',$idParticipante);
-            $this->db->where('a.idEquipo_Participante',$id);
-            $prueba= $this->db->get()->result();
+            $this->db->join('equipo_participante a', 'a.teamEquipo = e.idEquipo');
+            $this->db->where('e.juegoEquipo', $idJuego);
+            $this->db->where('a.participanteEquipo', $idParticipante);
+            $this->db->where('a.idEquipo_Participante', $id);
+            $prueba = $this->db->get()->result();
 
             $this->db->select('MAX(integrantesEquipo) AS "asis"');
             $this->db->where('idEquipo', $prueba[0]->idEquipo);
             $var = $this->db->get("equipo")->result();
 
-            if ($var[0]->asis <6) {
+            if ($var[0]->asis < 6) {
                 $data = array(
                     "estadoEquipo_Participante" => 3
                 );
                 $this->db->where('idEquipo_Participante', $id);
                 $this->db->update("equipo_participante", $data);
-    
+
                 $data = array("integrantesEquipo" => ($var[0]->asis) + 1);
                 $this->db->where("idEquipo", $prueba[0]->idEquipo);
                 $this->db->update("equipo", $data);
                 return "ok";
-            }else{
+            } else {
                 return "lleno";
             }
-            
         } else {
             return "no";
         }
     }
 
-    function edditEquipoSinFoto($id,$nombre, $descripcion){
+    function edditEquipoSinFoto($id, $nombre, $descripcion)
+    {
         $data = array(
             "nombreEquipo" => $nombre,
-            "descripcionEquipo"=>$descripcion
+            "descripcionEquipo" => $descripcion
         );
         $this->db->where('idEquipo', $id);
         $this->db->update("equipo", $data);
         return "ok";
     }
 
-    function edditEquipo($id,$nombre, $descripcion, $nombre_imagen){
+    function edditEquipo($id, $nombre, $descripcion, $nombre_imagen)
+    {
         $data = array(
             "nombreEquipo" => $nombre,
-            "descripcionEquipo"=>$descripcion,
-            "fotoEquipo"=> $nombre_imagen
+            "descripcionEquipo" => $descripcion,
+            "fotoEquipo" => $nombre_imagen
         );
         $this->db->where('idEquipo', $id);
         $this->db->update("equipo", $data);
         return "ok";
     }
 
-    function getNumeroNotificaciones($idEquipo){
+    function getNumeroNotificaciones($idEquipo)
+    {
         $this->db->select("count(*) as num");
         $this->db->from("participante p");
         $this->db->join("equipo_participante e", "e.participanteEquipo = p.idParticipante");
@@ -347,11 +388,12 @@ class ModeloParti extends CI_Model
         $this->db->where("e.teamEquipo", $idEquipo);
         $this->db->where("p.estadoParticipante", 1);
         $this->db->where("e.estadoEquipo_Participante", 1);
-        $resultado =$this->db->get()->result();
+        $resultado = $this->db->get()->result();
         return $resultado[0]->num;
     }
 
-    function getComentariosParticipantes($idEquipo){
+    function getComentariosParticipantes($idEquipo)
+    {
         $this->db->select("c.idtituloComentario_Equipo,c.tituloComentario_Equipo,c.detalleComentario_Equipo,c.fecha,concat(a.nombreAdministrador,' ',a.apellidoAdministrador) as nombreAdministrador");
         $this->db->from("comentario_equipo c");
         $this->db->join("administrador a", "a.idAdministrador = c.administradorComentario_Equipo");

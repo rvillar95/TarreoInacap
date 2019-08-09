@@ -91,4 +91,11 @@ class IndexModel extends CI_Model {
         return "error";
     }
 
+    function getJuegosPublico(){
+        $this->db->select("idEquipo,nombreEquipo,descripcionEquipo,fotoEquipo");
+        $this->db->from("equipo");
+        $this->db->where("estadoEquipo", 2);
+        return $this->db->get()->result();
+    }
+
 }

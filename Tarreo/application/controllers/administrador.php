@@ -2,7 +2,7 @@
 
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class administrador extends CI_Controller
+class Administrador extends CI_Controller
 {
 
     public function __construct()
@@ -324,6 +324,70 @@ class administrador extends CI_Controller
             $equipo = $this->input->post("equipo");
             $this->modeloAdmin->addComentario($titulo, $comentario, $admin, $equipo);
             echo json_encode(array("msg" => "ok"));
+        } else {
+            $this->load->view('Errormsg');
+        }
+    }
+
+    public function editarEstado()
+    {
+        if (count($this->session->userdata("administrador")) > 0) {
+            $id = $this->input->post("id");
+            $estado = $this->input->post("estado");
+            $this->modeloAdmin->editarEstado($id, $estado);
+            echo json_encode(array("msg" => "ok"));
+        } else {
+            $this->load->view('Errormsg');
+        }
+    }
+
+    public function getIntegratesEquipoAdmin()
+    { 
+        if (count($this->session->userdata("administrador")) > 0) {
+            $idEquipo = $this->input->post("id");
+            echo json_encode($this->modeloAdmin->getIntegratesEquipoAdmin($idEquipo));
+        } else {
+            $this->load->view('Errormsg');
+        }
+    }
+
+    public function verjuegosIndividualesAdmin()
+    {
+        if (count($this->session->userdata("administrador")) > 0) {
+            $draw = intval($this->input->get("draw"));
+            $start = intval($this->input->get("start"));
+            $length = intval($this->input->get("length"));
+            $books = $this->modeloAdmin->verjuegosIndividuales();
+            $data = array();
+            foreach ($books->result() as $r) {
+                $data[] = array(
+                    $r->idJuego,
+                    $r->nombreJuego,
+                    $r->descripcionJuego,
+                    $r->fotoJuego,
+                    $r->postulantesJuego,
+                    $r->fechaRealizacionJuego,
+                    $r->annoJuego,
+                );
+            }
+            $output = array(
+                "draw" => $draw,
+                "recordsTotal" => $books->num_rows(),
+                "recordsFiltered" => $books->num_rows(),
+                "data" => $data
+            );
+            echo json_encode($output);
+            exit();
+        } else {
+            $this->load->view('Errormsg');
+        }
+    }
+
+    public function getParticipantesAdmin()
+    {
+        if (count($this->session->userdata("administrador")) > 0) {
+            $id = $this->input->post("id");
+            echo json_encode($this->modeloAdmin->verParticipantesJuegos($id));
         } else {
             $this->load->view('Errormsg');
         }

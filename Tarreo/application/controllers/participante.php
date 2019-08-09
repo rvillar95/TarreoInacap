@@ -2,7 +2,7 @@
 
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class participante extends CI_Controller
+class Participante extends CI_Controller
 {
 
     public function __construct()
@@ -205,9 +205,11 @@ class participante extends CI_Controller
                 if ($resultado == "ok") {
                     redirect("Equipo");
                 } else if ($resultado == "no") {
-                    echo json_encode(array("msg" => "error"));
+                    echo "Ya Existe un equipo registrado a su nombre, comuniquese con un administrador";
                 } else if ($resultado == "error") {
-                    echo json_encode(array("msg" => "aaa"));
+                    echo "Error";
+                } else if ($resultado == "nope") {
+                    echo "Ya Estas en un equipo vinculado al mismo juego, comuniquese con un administrador";
                 }
             } else {
                 if ($tamano_imagen <= 10000000) {
@@ -226,6 +228,8 @@ class participante extends CI_Controller
                         echo "Ya Existe un equipo registrado a su nombre, comuniquese con un administrador";
                     } else if ($resultado == "error") {
                         echo "Error";
+                    } else if ($resultado == "nope") {
+                        echo "Ya Estas en un equipo vinculado al mismo juego, comuniquese con un administrador";
                     }
                 } else {
                     echo "El tamaño de la imagen supera el limite";
@@ -288,13 +292,15 @@ class participante extends CI_Controller
             $resultado = $this->modeloParti->addSolicitud($idEquipo, $idUsuario);
             if ($resultado == "ok") {
                 echo json_encode(array("msg" => "ok"));
-            } else if ($resultado == "no") {
+            } else if ($resultado == "nope") {
+                echo json_encode(array("msg" => "nope"));
+            }else if ($resultado == "no") {
                 echo json_encode(array("msg" => "error"));
             } else if ($resultado == "error") {
                 echo json_encode(array("msg" => "aaa"));
             } else if ($resultado == "noo") {
                 echo json_encode(array("msg" => "no"));
-            }
+            } 
         } else {
             $this->load->view('Errormsg');
         }

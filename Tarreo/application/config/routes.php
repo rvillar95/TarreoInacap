@@ -19,7 +19,7 @@ $route['Administrador'] = 'administrador/admin';
 $route['ModuloParticipantes'] = 'administrador/participantes';
 $route['ModuloJuegos'] = 'administrador/juegos';
 $route['ModuloEquipos'] = 'administrador/equipos';
-$route['ModuloFechas'] = 'administrador/fechas';
+$route['EquiposIndividuales'] = 'administrador/fechas';
 $route['ModuloParametros'] = 'administrador/parametros';
 
 
@@ -84,6 +84,15 @@ $route['verEquiposAdmin'] = 'administrador/verEquiposAdmin';
 $route['addComentario'] = 'administrador/addComentario';
 $route['getComentariosParticipantes'] = 'participante/getComentariosParticipantes';
 $route['editarJuego'] = 'administrador/editarJuego';
+$route['getJuegosPublico'] = 'welcome/getJuegosPublico';
+$route['editarEstado'] = 'administrador/editarEstado';
+$route['getIntegratesEquipoAdmin'] = 'administrador/getIntegratesEquipoAdmin';
+$route['verjuegosIndividualesAdmin'] = 'administrador/verjuegosIndividualesAdmin';
+$route['getParticipantesAdmin'] = 'administrador/getParticipantesAdmin';
+$route['Exito'] = 'welcome/exito';
+
+
+
 
 
 

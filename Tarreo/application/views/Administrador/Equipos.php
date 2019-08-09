@@ -64,7 +64,7 @@
                 <div class="row" style="padding: 20px;">
                     <h2><strong>Registros de Equipos</strong></h2>
                     <div class="table-responsive">
-                        <table class="table table-striped table-bordered table-hover dataTables-equipos">
+                        <table id="tabla" class="table table-striped table-bordered table-hover dataTables-equipos">
                             <thead>
                                 <tr>
                                     <th>ID</th>
@@ -111,22 +111,56 @@
                         <div class="ibox-content">
                             <div class="row">
                                 <div class="col-lg-12">
-
-                                    <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12"><label>Nombre Equipo</label> <input type="text" required name="nombre" placeholder="Ingrese Nombre Equipo" class="form-control"></div>
-                                    <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12"><label>Descripcion Equipo</label> <input type="text" required name="descripcion" placeholder="Ingrese Descripcion Equipo" class="form-control"></div>
+                                    <center><h3>Editar estado</h3></center>
+                                    <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12"><select id="estado" class="form-control m-b"><option disabled selected>Seleccione Estado</option><option value="3">Pendiente</option><option value="1">En Proceso</option><option value="2">Aprobado</option></select></div>
+                                    <div class="hidden"> <input type="text" required name="equipo" id="idEquipo" placeholder="Ingrese Descripcion Equipo" class="form-control"></div>
                                     <div class="hidden"><label>Descripcion Equipo</label> <input type="text" required name="equipo" id="equipo" placeholder="Ingrese Descripcion Equipo" class="form-control"></div>
                                     
-                                    <div class="form-group form-group col-lg-12 col-md-12 col-sm-4 col-xs-12"><button type="submit" id="btnAgregarEquipo" class="btn btn-primary" style="background-color: black; color: white; ">Registrar Equipo</button></div>
+                                    <div class="form-group form-group col-lg-12 col-md-12 col-sm-4 col-xs-12"><button type="submit" id="btnEditarEstado" class="btn btn-primary" style="background-color: black; color: white; ">Editar Estado Equipo</button></div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-lg-12">
+                                    <center><h3>Ingresar comentario</h3></center>
                                     <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12"><label>Titulo</label> <input type="text" required id="titulo" placeholder="Ingrese Titulo Comentario" class="form-control"></div>
                                     <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12"><label>Descripción </label> <textarea id="descripcion" class="form-control" placeholder="Escribe tu comentario"></textarea></div>
                                     <div class="hidden"><input type="text" id="idAdmin" value="<?= $user[0]->idAdministrador ?>"></div>
-                                    <div class="hidden"><input type="text" id="idEquipo" ></div>
-                                    <div class="form-group form-group col-lg-12 col-md-12 col-sm-4 col-xs-12"><button type="submit" id="btnAgregarComentario" class="btn btn-primary" style="background-color: black; color: white; ">Registrar Equipo</button></div>
+                                    <div class="hidden"><input type="text" id="id" ></div>
+                                    <div class="form-group form-group col-lg-12 col-md-12 col-sm-4 col-xs-12"><button type="submit" id="btnAgregarComentario" class="btn btn-primary" style="background-color: black; color: white; ">Agregar Comentario</button></div>
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="modal-integrantes" class="modal fade " tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content animated bounceInRight">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Tu Equipo</h4>
+                    <small class="font-bold">Integrantes de tu Equipo.</small>
+                </div>
+                <div class="modal-body">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-content">
+                            <div class="table-responsive">
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>ID </th>
+                                            <th>Rut</th>
+                                            <th>Nombre</th>
+                                            <th>Foto</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="tbodyDetalle">
+
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
@@ -167,7 +201,7 @@
                     "columnDefs": [{
                             "targets": 8,
                             "data": null,
-                            "defaultContent": '<button type="button" id="btnEditarEquipo" class="btn btn-info" data-toggle="modal" data-target="#modal-equipo"><i class="glyphicon glyphicon-pencil"></i></button>'
+                            "defaultContent": '<button type="button" id="btnEditarEquipo" class="btn btn-info" data-toggle="modal" data-target="#modal-equipo"><i class="glyphicon glyphicon-pencil"></i></button>  <button type="button" id="btnVerEquipo" class="btn btn-info" data-toggle="modal" data-target="#modal-integrantes"><i class="fa fa-bars"></i></button>'
                         }
 
                     ],
@@ -209,16 +243,48 @@
                     $("#idEquipo").val($(idEquipo).text())
                     
 
-                    var table = $('.dataTables-equipos').DataTable();
+                    var table = $('#tabla').DataTable();
                     table.ajax.reload(function(json) {
                         $('#btnEditarEquipo').val(json.lastInput);
                     });
+                    
+                });
+
+                $("body").on("click", "#btnVerEquipo", function(e) {
+                    e.preventDefault();
+                    var idEquipo = $(this).parent().parent().children()[0];
+           
+                    
+                    verIntegrantesAdmin($(idEquipo).text());
+
+                    var table = $('#tabla').DataTable();
+                    table.ajax.reload(function(json) {
+                        $('#btnVerEquipo').val(json.lastInput);
+                    });
+                    
                 });
 
                 $("#btnAgregarComentario").click(function(e){
                     e.preventDefault();
                     addComentario();
+                    
+                    var table = $('#tabla').DataTable();
+                    table.ajax.reload(function(json) {
+                        $('#btnAgregarComentario').val(json.lastInput);
+                    });
                 });
+
+
+                $("#btnEditarEstado").click(function(e){
+                    e.preventDefault();
+                    editarEstado();
+                    var table = $('#tabla').DataTable();
+                    table.ajax.reload(function(json) {
+                        $('#btnAgregarComentario').val(json.lastInput);
+                    });
+                });
+
+                
 
 
                 $("#btn").click(function(e) {
